@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technology | EcoCycle Innovations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #0f766e;
+            --primary-light: #14b8a6;
+            --primary-dark: #115e59;
+            --accent: #f59e0b;
+            --accent-light: #fbbf24;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            background: linear-gradient(135deg, var(--gray-50) 0%, #ffffff 100%);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
+                       radial-gradient(circle at 80% 20%, rgba(20, 184, 166, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .nav-glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-radius: 2px;
+        }
+        
+        .tech-icon {
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+            color: white;
+        }
+        
+        .tech-icon:hover {
+            transform: scale(1.15) rotate(8deg);
+            box-shadow: 0 10px 25px rgba(15, 118, 110, 0.3);
+        }
+        
+        .footer-gradient {
+            background: linear-gradient(135deg, var(--gray-900) 0%, #1a1a1a 100%);
+        }
+        
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            .section-title::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="nav-glass shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <span class="text-primary font-bold text-2xl font-['Outfit']">EcoCycle Innovations</span>
+                    </div>
+                    <div class="hidden md:ml-10 md:flex md:space-x-8">
+                        <a href="index.html" class="text-gray-600 hover:text-primary px-3 py-2 text-sm font-medium transition-colors">Home</a>
+                        <a href="about.html" class="text-gray-600 hover:text-primary px-3 py-2 text-sm font-medium transition-colors">About</a>
+                        <a href="products.html" class="text-gray-600 hover:text-primary px-3 py-2 text-sm font-medium transition-colors">Products</a>
+                        <a href="technology.html" class="text-primary border-b-2 border-primary px-3 py-2 text-sm font-medium">Technology</a>
+                        <a href="blog.html" class="text-gray-600 hover:text-primary px-3 py-2 text-sm font-medium transition-colors">Blog</a>
+                        <a href="team-contact.html" class="text-gray-600 hover:text-primary px-3 py-2 text-sm font-medium transition-colors">Team & Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient pt-24 pb-20 md:pt-32 md:pb-28 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-['Outfit'] leading-tight">
+                Our <span class="text-yellow-300">Cutting-Edge</span> Technology
+            </h1>
+            <p class="text-lg md:text-xl text-emerald-100 mb-8 leading-relaxed opacity-90 max-w-3xl mx-auto">
+                Powered by indigenously developed, IoT-enabled automation systems designed for precision and scalability.
+            </p>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section class="py-20 bg-gradient-to-br from-emerald-50 to-teal-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold section-title mb-4">IoT-Enabled Automated Extruder</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    Our proprietary extrusion technology represents a breakthrough in sustainable manufacturing.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h3 class="text-2xl font-bold text-primary mb-6">Advanced IoT-Enabled Automation</h3>
+                    <p class="text-gray-700 mb-8 leading-relaxed text-lg">
+                        Our proprietary extrusion technology represents a breakthrough in sustainable manufacturing. The system combines precision engineering with real-time IoT monitoring to ensure consistent quality and optimal performance while processing various waste streams.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 w-10 h-10 bg-primary rounded-full flex items-center justify-center mr-4 tech-icon">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <span class="text-gray-700 font-medium">Real-time process monitoring and optimization</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 w-10 h-10 bg-primary rounded-full flex items-center justify-center mr-4 tech-icon">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <span class="text-gray-700 font-medium">Precision control for consistent product quality</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 w-10 h-10 bg-primary rounded-full flex items-center justify-center mr-4 tech-icon">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <span class="text-gray-700 font-medium">Scalable design for industrial deployment</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 w-10 h-10 bg-primary rounded-full flex items-center justify-center mr-4 tech-icon">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <span class="text-gray-700 font-medium">Energy-efficient operation with minimal waste</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/59a5bce9-344e-4ce3-811b-41e67b92bfea.png" alt="Advanced IoT-enabled extrusion machinery with digital monitoring displays showing real-time processing data and quality metrics" class="rounded-2xl shadow-lg transform hover:scale-105 transition-transform duration-300" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Footer -->
+    <footer class="footer-gradient text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 font-['Outfit']">EcoCycle Innovations</h3>
+                    <p class="text-gray-400">
+                        Transforming waste into wealth through advanced engineering and sustainable manufacturing solutions.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white transition-colors">About</a></li>
+                        <li><a href="products.html" class="text-gray-400 hover:text-white transition-colors">Products</a></li>
+                        <li><a href="technology.html" class="text-gray-400 hover:text-white transition-colors">Technology</a></li>
+                        <li><a href="team-contact.html" class="text-gray-400 hover:text-white transition-colors">Team & Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>info@ecocycle.com</li>
+                        <li>+1 (555) 123-4567</li>
+                        <li>123 Innovation Drive</li>
+                        <li>Tech City, TC 12345</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Follow Us</h4>
+                   <div class="flex space-x-4">
+    <a href="https://www.linkedin.com/company/ecocycleinnovations/posts/?feedView=all" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors">
+        <i class="fab fa-linkedin text-xl"></i>
+    </a>
+    <a href="https://www.instagram.com/ecocycle_innovation/?igsh=MXFwdGU2bXZpbXF4eA%3D%3D#" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors">
+        <i class="fab fa-instagram text-xl"></i>
+    </a>
+</div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>© 2024 EcoCycle Innovations. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

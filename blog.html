@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Ecocycle Innovations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #10b981;
+            --accent: #f59e0b;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+            position: relative;
+        }
+        
+        .hero-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+        }
+        
+        .section-title {
+            background: linear-gradient(135deg, #10b981, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(135deg, #10b981, #f59e0b);
+            border-radius: 2px;
+        }
+        
+        .blog-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(16, 185, 129, 0.1);
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.2);
+        }
+        
+        .blog-image {
+            border-radius: 12px 12px 0 0;
+            overflow: hidden;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .read-more {
+            color: #10b981;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .read-more:hover {
+            color: #f59e0b;
+            transform: translateX(5px);
+        }
+        
+        .floating-shape {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #10b981, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(135deg, #10b981, #f59e0b);
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #10b981, #f59e0b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+        }
+    </style>
+</head>
+<body class="font-['Outfit'] bg-gray-50">
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-xl font-bold text-gray-900 font-['Outfit']">
+                        Ecocycle <span class="text-primary">Innovations</span>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="index.html" class="text-gray-600 hover:text-primary transition-colors">Home</a>
+                        <a href="about.html" class="text-gray-600 hover:text-primary transition-colors">About</a>
+                        <a href="products.html" class="text-gray-600 hover:text-primary transition-colors">Products</a>
+                        <a href="technology.html" class="text-gray-600 hover:text-primary transition-colors">Technology</a>
+                        <a href="blog.html" class="text-primary font-semibold">Blog</a>
+                        <a href="team-contact.html" class="text-gray-600 hover:text-primary transition-colors">Team & Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient py-20 relative overflow-hidden">
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <!-- Floating Shapes -->
+            <div class="absolute top-10 left-10 w-20 h-20 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full floating-shape"></div>
+            <div class="absolute top-20 right-20 w-16 h-16 bg-gradient-to-br from-accent/20 to-primary/20 rounded-full floating-shape" style="animation-delay: -2s;"></div>
+            <div class="absolute bottom-10 left-20 w-24 h-24 bg-gradient-to-br from-primary/15 to-accent/15 rounded-full floating-shape" style="animation-delay: -4s;"></div>
+            
+            <div class="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm mb-6 border border-white/20">
+                <i class="fas fa-lightbulb mr-2 text-accent"></i>
+                Knowledge Hub
+            </div>
+            
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">
+                Insights & <span class="gradient-text">Innovations</span>
+            </h1>
+            
+            <p class="text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
+                Discover the latest in sustainable technology, circular economy insights, and Ecocycle's journey in transforming waste into wealth.
+            </p>
+        </div>
+    </section>
+
+    <!-- Featured Article Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold section-title mb-4">Featured Article</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Our latest insights on sustainability and innovation in waste management
+                </p>
+            </div>
+            
+            <div class="blog-card overflow-hidden">
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Plastic Waste in Ocean" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex items-center mb-4">
+                            <span class="tag bg-red-100 text-red-700">Featured</span>
+                            <span class="text-gray-500 text-sm ml-4">December 15, 2024</span>
+                        </div>
+                        
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                            From Waste to Wealth: The Plastic Recycling Revolution
+                        </h3>
+                        
+                        <p class="text-gray-600 mb-6 leading-relaxed">
+                            Every year, millions of tons of plastic waste end up in landfills and oceans, causing irreversible damage to ecosystems, marine life, and even human health. At Ecocycle Innovations, we believe waste can be transformed into opportunity.
+                        </p>
+                        
+                        <div class="space-y-3 mb-6">
+                            <div class="flex items-center">
+                                <div class="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                                <span class="text-gray-700">♻️ By recycling PET bottles, we create value-added 3D printing filaments</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-2 h-2 bg-accent rounded-full mr-3"></div>
+                                <span class="text-gray-700">Powering sustainable innovations across education and consumer goods</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                                <span class="text-gray-700">Building a greener, circular future through technology</span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="tag bg-blue-100 text-blue-700">#CircularEconomy</span>
+                            <span class="tag bg-green-100 text-green-700">#Sustainability</span>
+                            <span class="tag bg-purple-100 text-purple-700">#3DPrinting</span>
+                            <span class="tag bg-orange-100 text-orange-700">#Innovation</span>
+                        </div>
+                        
+                        <a href="#" class="read-more inline-flex items-center">
+                            Read Full Article
+                            <i class="fas fa-arrow-right ml-2 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Articles Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold section-title mb-4">Recent Articles</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Stay updated with the latest trends in sustainable technology and waste management
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Article 1 -->
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="3D Printing Technology" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="tag bg-green-100 text-green-700">Technology</span>
+                            <span class="text-gray-500 text-sm ml-3">December 12, 2024</span>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">The Future of 3D Printing with Recycled Materials</h3>
+                        
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                            Explore how recycled PET filaments are revolutionizing the 3D printing industry while promoting sustainability.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tag bg-blue-100 text-blue-700">#3DPrinting</span>
+                            <span class="tag bg-green-100 text-green-700">#Recycled</span>
+                        </div>
+                        
+                        <a href="#" class="read-more text-sm">Read More →</a>
+                    </div>
+                </article>
+
+                <!-- Article 2 -->
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Ocean Cleanup" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="tag bg-blue-100 text-blue-700">Environment</span>
+                            <span class="text-gray-500 text-sm ml-3">December 10, 2024</span>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Impact of Plastic Waste on Marine Ecosystems</h3>
+                        
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                            Understanding the devastating effects of plastic pollution and how recycling initiatives can make a difference.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tag bg-blue-100 text-blue-700">#MarineLife</span>
+                            <span class="tag bg-red-100 text-red-700">#Pollution</span>
+                        </div>
+                        
+                        <a href="#" class="read-more text-sm">Read More →</a>
+                    </div>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Circular Economy" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="tag bg-purple-100 text-purple-700">Innovation</span>
+                            <span class="text-gray-500 text-sm ml-3">December 8, 2024</span>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Building a Circular Economy: From Theory to Practice</h3>
+                        
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                            How businesses and individuals can contribute to creating a sustainable circular economy through innovation.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tag bg-purple-100 text-purple-700">#CircularEconomy</span>
+                            <span class="tag bg-orange-100 text-orange-700">#Innovation</span>
+                        </div>
+                        
+                        <a href="#" class="read-more text-sm">Read More →</a>
+                    </div>
+                </article>
+
+                <!-- Article 4 -->
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Sustainable Manufacturing" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="tag bg-green-100 text-green-700">Manufacturing</span>
+                            <span class="text-gray-500 text-sm ml-3">December 5, 2024</span>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Sustainable Manufacturing: A Guide for Businesses</h3>
+                        
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                            Practical strategies for implementing sustainable manufacturing practices in modern businesses.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tag bg-green-100 text-green-700">#Manufacturing</span>
+                            <span class="tag bg-blue-100 text-blue-700">#Sustainability</span>
+                        </div>
+                        
+                        <a href="#" class="read-more text-sm">Read More →</a>
+                    </div>
+                </article>
+
+                <!-- Article 5 -->
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Education Technology" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="tag bg-yellow-100 text-yellow-700">Education</span>
+                            <span class="text-gray-500 text-sm ml-3">December 3, 2024</span>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">3D Printing in Education: Revolutionizing Learning</h3>
+                        
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                            How 3D printing technology is transforming educational experiences and fostering creativity in students.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tag bg-yellow-100 text-yellow-700">#Education</span>
+                            <span class="tag bg-purple-100 text-purple-700">#3DPrinting</span>
+                        </div>
+                        
+                        <a href="#" class="read-more text-sm">Read More →</a>
+                    </div>
+                </article>
+
+                <!-- Article 6 -->
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Consumer Products" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="tag bg-orange-100 text-orange-700">Products</span>
+                            <span class="text-gray-500 text-sm ml-3">December 1, 2024</span>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Eco-Friendly Consumer Products: Market Trends</h3>
+                        
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                            Exploring the growing demand for sustainable consumer products and market opportunities.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tag bg-orange-100 text-orange-700">#ConsumerProducts</span>
+                            <span class="tag bg-green-100 text-green-700">#EcoFriendly</span>
+                        </div>
+                        
+                        <a href="#" class="read-more text-sm">Read More →</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold section-title mb-4">Stay Updated</h2>
+            <p class="text-gray-600 mb-8 max-w-2xl mx-auto">
+                Subscribe to our newsletter for the latest insights on sustainability, innovation, and waste-to-wealth technology.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                <button class="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-md">
+                    Subscribe
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4 font-['Outfit']">Ecocycle Innovations</h3>
+                    <p class="text-gray-400 text-sm">
+                        Transforming waste into wealth through advanced engineering and sustainable manufacturing solutions.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors text-sm">Home</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white transition-colors text-sm">About</a></li>
+                        <li><a href="products.html" class="text-gray-400 hover:text-white transition-colors text-sm">Products</a></li>
+                        <li><a href="technology.html" class="text-gray-400 hover:text-white transition-colors text-sm">Technology</a></li>
+                        <li><a href="blog.html" class="text-gray-400 hover:text-white transition-colors text-sm">Blog</a></li>
+                        <li><a href="team-contact.html" class="text-gray-400 hover:text-white transition-colors text-sm">Team & Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li>info@ecocycle.com</li>
+                        <li>+1 (555) 123-4567</li>
+                        <li>123 Innovation Drive</li>
+                        <li>Tech City, TC 12345</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://www.linkedin.com/company/ecocycleinnovations/posts/?feedView=all" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/ecocycle_innovation/?igsh=MXFwdGU2bXZpbXF4eA%3D%3D#" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-youtube text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
+                <p>© 2024 Ecocycle Innovations. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Progress Bar
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.offsetHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.getElementById('progressBar').style.width = scrollPercent + '%';
+        });
+
+        // Back to Top Button
+        const backToTopBtn = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

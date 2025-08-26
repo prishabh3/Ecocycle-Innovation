@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team & Contact | EcoCycle Innovations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #0f766e;
+            --primary-light: #14b8a6;
+            --primary-dark: #115e59;
+            --accent: #f59e0b;
+            --accent-light: #fbbf24;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            background: linear-gradient(135deg, var(--gray-50) 0%, #ffffff 100%);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
+                       radial-gradient(circle at 80% 20%, rgba(20, 184, 166, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .nav-glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-radius: 2px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(15, 118, 110, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(15, 118, 110, 0.4);
+        }
+        
+        .btn-secondary {
+            border: 2px solid white;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-secondary:hover::before {
+            left: 100%;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary);
+        }
+        
+        .team-member {
+            transition: all 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-card {
+            transition: all 0.3s ease;
+            background: linear-gradient(145deg, #ffffff 0%, var(--gray-50) 100%);
+            border: 1px solid rgba(209, 213, 219, 0.5);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            border-color: var(--primary-light);
+        }
+        
+        .contact-icon {
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+            color: white;
+        }
+        
+        .contact-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(15, 118, 110, 0.3);
+        }
+        
+        .footer-gradient {
+            background: linear-gradient(135deg, var(--gray-900) 0%, #1a1a1a 100%);
+        }
+        
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            .section-title::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="nav-glass shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <span class="text-primary font-bold text-2xl font-['Outfit']">EcoCycle Innovations</span>
+                    </div>
+                    <div class="hidden md:ml-10 md:flex md:space-x-8">
+                        <a href="index.html" class="text-gray-600 hover:text-primary px-3 py-2 text-sm font-medium transition-colors">Home</a>
+                        <a href="about.html" class="text-gray-600 hover:text-primary px-3 py-2 text-sm font-medium transition-colors">About</a>
+                        <a href="products.html" class="text-gray-600 hover:text-primary px-3 py-2 text-sm font-medium transition-colors">Products</a>
+                        <a href="technology.html" class="text-gray-600 hover:text-primary px-3 py-2 text-sm font-medium transition-colors">Technology</a>
+                        <a href="blog.html" class="text-gray-600 hover:text-primary px-3 py-2 text-sm font-medium transition-colors">Blog</a>
+                        <a href="team-contact.html" class="text-primary border-b-2 border-primary px-3 py-2 text-sm font-medium">Team & Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient pt-24 pb-20 md:pt-32 md:pb-28 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-['Outfit'] leading-tight">
+                Meet Our Team & <span class="text-yellow-300">Get in Touch</span>
+            </h1>
+            <p class="text-lg md:text-xl text-emerald-100 mb-8 leading-relaxed opacity-90 max-w-3xl mx-auto">
+                Connect with our PhD-level experts in sustainable manufacturing and discover how we can transform your waste into value.
+            </p>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold section-title mb-4">Our Expert Team</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    Co-founders with PhDs in manufacturing, bringing over 10 years of combined expertise in mechatronics, industrial automation, additive manufacturing, and sustainable product development.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="team-member bg-white rounded-3xl p-8 text-center shadow-lg border border-gray-100">
+                    <div class="w-32 h-32 mx-auto mb-6 rounded-full bg-gradient-to-br from-primary to-primary-light flex items-center justify-center">
+                        <i class="fas fa-user-graduate text-white text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Dr. Manoj Nikam</h3>
+                    <p class="text-primary font-semibold mb-4">Co-Founder, EcoCycle Innovations</p>
+                    <div class="text-gray-600 mb-4 text-left space-y-2">
+                        <p><strong>📞 Contact:</strong> +91-9004001953</p>
+                        <p><strong>🎓 Expertise (10+ years):</strong></p>
+                        <ul class="list-disc list-inside text-sm space-y-1">
+                            <li>Ph.D. in Manufacturing</li>
+                            <li>Mechatronics</li>
+                            <li>Industrial Automation</li>
+                            <li>Additive Manufacturing</li>
+                        </ul>
+                    </div>
+                    <div class="flex justify-center space-x-3">
+                        <a href="tel:+919004001953" class="text-primary hover:text-primary-dark transition-colors p-2 rounded-full bg-gray-100 hover:bg-gray-200">
+                            <i class="fas fa-phone"></i>
+                        </a>
+                        <a href="mailto:manoj.nikam@ecocycle.com" class="text-primary hover:text-primary-dark transition-colors p-2 rounded-full bg-gray-100 hover:bg-gray-200">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="team-member bg-white rounded-3xl p-8 text-center shadow-lg border border-gray-100">
+                    <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden">
+                        <img src="Tribeni.png" alt="Dr. Tribeni Roy" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Dr. Tribeni Roy</h3>
+                    <p class="text-primary font-semibold mb-4">Co-Founder, EcoCycle Innovations</p>
+                    <p class="text-primary text-sm mb-2">Assistant Professor (Mechanical Engineering), BITS Pilani</p>
+                    <div class="text-gray-600 mb-4 text-left space-y-2">
+                        <p><strong>📞 Contact:</strong> +91-9969535867</p>
+                        <p><strong>🎓 Expertise (10+ years):</strong></p>
+                        <ul class="list-disc list-inside text-sm space-y-1">
+                            <li>Ph.D. in Manufacturing</li>
+                            <li>Additive Manufacturing</li>
+                            <li>Building generative models for alloys, porous materials (3 years+)</li>
+                        </ul>
+                    </div>
+                    <div class="flex justify-center space-x-3">
+                        <a href="tel:+919969535867" class="text-primary hover:text-primary-dark transition-colors p-2 rounded-full bg-gray-100 hover:bg-gray-200">
+                            <i class="fas fa-phone"></i>
+                        </a>
+                        <a href="mailto:tribeni.roy@ecocycle.com" class="text-primary hover:text-primary-dark transition-colors p-2 rounded-full bg-gray-100 hover:bg-gray-200">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-20 bg-gradient-to-br from-emerald-50 to-teal-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold section-title mb-4">Get in Touch</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    Ready to transform your waste into value? Let's discuss how our sustainable manufacturing solutions can benefit your business.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-16">
+                <!-- Contact Information -->
+                <div>
+                    <h3 class="text-2xl font-bold text-primary mb-6">Contact Information</h3>
+                    <div class="space-y-6">
+                        <div class="contact-card rounded-2xl p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 w-14 h-14 bg-primary rounded-2xl flex items-center justify-center mr-6 contact-icon">
+                                    <i class="fas fa-envelope text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 text-lg">Email Us</h4>
+                                    <p class="text-gray-600">info@ecocycle.com</p>
+                                    <p class="text-gray-600">support@ecocycle.com</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-card rounded-2xl p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 w-14 h-14 bg-primary rounded-2xl flex items-center justify-center mr-6 contact-icon">
+                                    <i class="fas fa-phone text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 text-lg">Call Us</h4>
+                                    <p class="text-gray-600">+1 (555) 123-4567</p>
+                                    <p class="text-gray-600">Mon-Fri: 9:00 AM - 6:00 PM EST</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-card rounded-2xl p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 w-14 h-14 bg-primary rounded-2xl flex items-center justify-center mr-6 contact-icon">
+                                    <i class="fas fa-map-marker-alt text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 text-lg">Visit Us</h4>
+                                    <p class="text-gray-600">123 Innovation Drive</p>
+                                    <p class="text-gray-600">Tech City, TC 12345</p>
+                                    <p class="text-gray-600">United States</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div>
+                    <h3 class="text-2xl font-bold text-primary mb-6">Send us a Message</h3>
+                    <form class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                                <input type="text" id="firstName" name="firstName" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                            </div>
+                            <div>
+                                <label for="lastName" class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                                <input type="text" id="lastName" name="lastName" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                            <input type="email" id="email" name="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                        </div>
+                        
+                        <div>
+                            <label for="company" class="block text-sm font-medium text-gray-700 mb-2">Company</label>
+                            <input type="text" id="company" name="company" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                        </div>
+                        
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+                            <select id="subject" name="subject" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                                <option value="">Select a subject</option>
+                                <option value="consultation">Schedule a Consultation</option>
+                                <option value="partnership">Partnership Inquiry</option>
+                                <option value="product">Product Information</option>
+                                <option value="support">Technical Support</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                            <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors" placeholder="Tell us about your project or inquiry..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary w-full px-8 py-4 rounded-lg font-semibold text-white">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 hero-gradient">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6 font-['Outfit']">Ready to Transform Your Waste into Value?</h2>
+            <p class="text-xl text-emerald-100 mb-10 max-w-3xl mx-auto opacity-90">
+                Join us in building a sustainable future through innovative recycling and advanced manufacturing solutions.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#contact" class="btn-primary px-8 py-4 rounded-full font-semibold text-white">
+                    Schedule a Consultation
+                </a>
+                <a href="about.html" class="btn-secondary px-8 py-4 rounded-full font-semibold text-white">
+                    Learn About Partnerships
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-gradient text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 font-['Outfit']">EcoCycle Innovations</h3>
+                    <p class="text-gray-400">
+                        Transforming waste into wealth through advanced engineering and sustainable manufacturing solutions.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white transition-colors">About</a></li>
+                        <li><a href="products.html" class="text-gray-400 hover:text-white transition-colors">Products</a></li>
+                        <li><a href="technology.html" class="text-gray-400 hover:text-white transition-colors">Technology</a></li>
+                        <li><a href="team-contact.html" class="text-gray-400 hover:text-white transition-colors">Team & Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>info@ecocycle.com</li>
+                        <li>+1 (555) 123-4567</li>
+                        <li>123 Innovation Drive</li>
+                        <li>Tech City, TC 12345</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Follow Us</h4>
+                    <div class="flex space-x-4">
+    <a href="https://www.linkedin.com/company/ecocycleinnovations/posts/?feedView=all" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors">
+        <i class="fab fa-linkedin text-xl"></i>
+    </a>
+    <a href="https://www.instagram.com/ecocycle_innovation/?igsh=MXFwdGU2bXZpbXF4eA%3D%3D#" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors">
+        <i class="fab fa-instagram text-xl"></i>
+    </a>
+</div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>© 2024 EcoCycle Innovations. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
