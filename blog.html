@@ -149,6 +149,33 @@
         .footer-gradient {
             background: linear-gradient(135deg, var(--gray-900) 0%, #1a1a1a 100%);
         }
+        
+        /* Mobile Navigation Styles */
+        @media (max-width: 768px) {
+            .sticky {
+                position: relative;
+            }
+            
+            #mobile-menu {
+                transition: all 0.3s ease;
+                transform-origin: top;
+            }
+            
+            #mobile-menu:not(.hidden) {
+                animation: slideDown 0.3s ease-out;
+            }
+            
+            @keyframes slideDown {
+                from {
+                    opacity: 0;
+                    transform: scaleY(0);
+                }
+                to {
+                    opacity: 1;
+                    transform: scaleY(1);
+                }
+            }
+        }
     </style>
 </head>
 <body class="font-['Outfit'] bg-gray-50">
@@ -169,6 +196,8 @@
                         Ecocycle <span class="text-primary">Innovations</span>
                     </a>
                 </div>
+                
+                <!-- Desktop Navigation -->
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
                         <a href="index.html" class="text-gray-600 hover:text-primary transition-colors">Home</a>
@@ -178,6 +207,25 @@
                         <a href="blog.html" class="text-primary font-semibold">Blog</a>
                         <a href="team-contact.html" class="text-gray-600 hover:text-primary transition-colors">Team & Contact</a>
                     </div>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-600 hover:text-primary transition-colors p-2">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation Menu -->
+            <div id="mobile-menu" class="md:hidden hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-200">
+                    <a href="index.html" class="block px-3 py-2 text-gray-600 hover:text-primary transition-colors">Home</a>
+                    <a href="about.html" class="block px-3 py-2 text-gray-600 hover:text-primary transition-colors">About</a>
+                    <a href="products.html" class="block px-3 py-2 text-gray-600 hover:text-primary transition-colors">Products</a>
+                    <a href="technology.html" class="block px-3 py-2 text-gray-600 hover:text-primary transition-colors">Technology</a>
+                    <a href="blog.html" class="block px-3 py-2 text-primary font-semibold">Blog</a>
+                    <a href="team-contact.html" class="block px-3 py-2 text-gray-600 hover:text-primary transition-colors">Team & Contact</a>
                 </div>
             </div>
         </div>
@@ -536,6 +584,27 @@
             });
         });
 
+        // Mobile menu functionality
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!mobileMenuButton.contains(event.target) && !mobileMenu.contains(event.target)) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+        
+        // Close mobile menu when window is resized to desktop
+        window.addEventListener('resize', function() {
+            if (window.innerWidth >= 768) { // md breakpoint
+                mobileMenu.classList.add('hidden');
+            }
+        });
 
     </script>
 </body>
