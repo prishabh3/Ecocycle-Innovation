@@ -15,7 +15,7 @@
         }
         
         .hero-gradient {
-            background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+            background: linear-gradient(135deg, #064e3b 0%, #065f46 25%, #047857 50%, #059669 75%, #10b981 100%);
             position: relative;
         }
         
@@ -26,12 +26,14 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at 30% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(34, 197, 94, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(6, 78, 59, 0.1) 0%, transparent 70%);
         }
         
         .section-title {
-            background: linear-gradient(135deg, #10b981, #f59e0b);
+            background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -46,7 +48,7 @@
             transform: translateX(-50%);
             width: 60px;
             height: 3px;
-            background: linear-gradient(135deg, #10b981, #f59e0b);
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             border-radius: 2px;
         }
         
@@ -55,13 +57,13 @@
             border-radius: 16px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
-            border: 1px solid rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.15);
         }
         
         .blog-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.15);
-            border-color: rgba(16, 185, 129, 0.2);
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.2);
+            border-color: rgba(16, 185, 129, 0.3);
         }
         
         .blog-image {
@@ -85,7 +87,7 @@
         }
         
         .read-more:hover {
-            color: #f59e0b;
+            color: #059669;
             transform: translateX(5px);
         }
         
@@ -99,7 +101,7 @@
         }
         
         .gradient-text {
-            background: linear-gradient(135deg, #10b981, #f59e0b);
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -110,7 +112,7 @@
             top: 0;
             left: 0;
             height: 3px;
-            background: linear-gradient(135deg, #10b981, #f59e0b);
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             z-index: 1000;
             transition: width 0.3s ease;
         }
@@ -222,7 +224,6 @@
                     <div class="p-8">
                         <div class="flex items-center mb-4">
                             <span class="tag bg-red-100 text-red-700">Featured</span>
-                            <span class="text-gray-500 text-sm ml-4">December 15, 2024</span>
                         </div>
                         
                         <h3 class="text-2xl font-bold text-gray-900 mb-4">
@@ -255,180 +256,168 @@
                             <span class="tag bg-orange-100 text-orange-700">#Innovation</span>
                         </div>
                         
-                        <a href="#" class="read-more inline-flex items-center">
-                            Read Full Article
-                            <i class="fas fa-arrow-right ml-2 transition-transform"></i>
-                        </a>
+
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Recent Articles Section -->
-    <section class="py-16 bg-gray-50">
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Additional Blog Articles Section -->
+    <section class="py-16 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold section-title mb-4">Recent Articles</h2>
+                <h2 class="text-3xl font-bold section-title mb-4">Latest Insights</h2>
                 <p class="text-gray-600 max-w-2xl mx-auto">
-                    Stay updated with the latest trends in sustainable technology and waste management
+                    Fresh perspectives on sustainability, education, and innovation in 3D printing
                 </p>
             </div>
             
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Article 1 -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+                <!-- Article 1: Plastic Bottles to Innovation -->
                 <article class="blog-card">
                     <div class="blog-image">
-                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="3D Printing Technology" class="w-full h-48 object-cover">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Plastic Bottles Recycling" class="w-full h-48 object-cover">
                     </div>
                     <div class="p-6">
                         <div class="flex items-center mb-3">
-                            <span class="tag bg-green-100 text-green-700">Technology</span>
-                            <span class="text-gray-500 text-sm ml-3">December 12, 2024</span>
+                            <span class="tag bg-green-100 text-green-700">Sustainability</span>
                         </div>
                         
-                        <h3 class="text-xl font-bold text-gray-900 mb-3">The Future of 3D Printing with Recycled Materials</h3>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">From Plastic Bottles to Innovation: The Two Futures</h3>
                         
                         <p class="text-gray-600 mb-4 text-sm leading-relaxed">
-                            Explore how recycled PET filaments are revolutionizing the 3D printing industry while promoting sustainability.
+                            Every plastic bottle tossed away has two futures — polluting our oceans, or powering innovation through recycling. At Ecocycle Innovations we are choosing the latter.
                         </p>
                         
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="tag bg-blue-100 text-blue-700">#3DPrinting</span>
-                            <span class="tag bg-green-100 text-green-700">#Recycled</span>
+                        <div class="space-y-2 mb-4 text-sm text-gray-600">
+                            <p>♻️ Converting discarded plastics into high-quality 3D printing filaments and models</p>
+                            <p>🌍 Proving that waste can fuel sustainability, innovation, and education</p>
+                            <p>✨ Turning plastic waste into opportunity for a cleaner planet</p>
                         </div>
-                        
-                        <a href="#" class="read-more text-sm">Read More →</a>
-                    </div>
-                </article>
-
-                <!-- Article 2 -->
-                <article class="blog-card">
-                    <div class="blog-image">
-                        <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Ocean Cleanup" class="w-full h-48 object-cover">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center mb-3">
-                            <span class="tag bg-blue-100 text-blue-700">Environment</span>
-                            <span class="text-gray-500 text-sm ml-3">December 10, 2024</span>
-                        </div>
-                        
-                        <h3 class="text-xl font-bold text-gray-900 mb-3">Impact of Plastic Waste on Marine Ecosystems</h3>
-                        
-                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
-                            Understanding the devastating effects of plastic pollution and how recycling initiatives can make a difference.
-                        </p>
                         
                         <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="tag bg-blue-100 text-blue-700">#MarineLife</span>
-                            <span class="tag bg-red-100 text-red-700">#Pollution</span>
-                        </div>
-                        
-                        <a href="#" class="read-more text-sm">Read More →</a>
-                    </div>
-                </article>
-
-                <!-- Article 3 -->
-                <article class="blog-card">
-                    <div class="blog-image">
-                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Circular Economy" class="w-full h-48 object-cover">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center mb-3">
-                            <span class="tag bg-purple-100 text-purple-700">Innovation</span>
-                            <span class="text-gray-500 text-sm ml-3">December 8, 2024</span>
-                        </div>
-                        
-                        <h3 class="text-xl font-bold text-gray-900 mb-3">Building a Circular Economy: From Theory to Practice</h3>
-                        
-                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
-                            How businesses and individuals can contribute to creating a sustainable circular economy through innovation.
-                        </p>
-                        
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="tag bg-purple-100 text-purple-700">#CircularEconomy</span>
-                            <span class="tag bg-orange-100 text-orange-700">#Innovation</span>
-                        </div>
-                        
-                        <a href="#" class="read-more text-sm">Read More →</a>
-                    </div>
-                </article>
-
-                <!-- Article 4 -->
-                <article class="blog-card">
-                    <div class="blog-image">
-                        <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Sustainable Manufacturing" class="w-full h-48 object-cover">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center mb-3">
-                            <span class="tag bg-green-100 text-green-700">Manufacturing</span>
-                            <span class="text-gray-500 text-sm ml-3">December 5, 2024</span>
-                        </div>
-                        
-                        <h3 class="text-xl font-bold text-gray-900 mb-3">Sustainable Manufacturing: A Guide for Businesses</h3>
-                        
-                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
-                            Practical strategies for implementing sustainable manufacturing practices in modern businesses.
-                        </p>
-                        
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="tag bg-green-100 text-green-700">#Manufacturing</span>
                             <span class="tag bg-blue-100 text-blue-700">#Sustainability</span>
+                            <span class="tag bg-green-100 text-green-700">#Innovation</span>
+                            <span class="tag bg-purple-100 text-purple-700">#3DPrinting</span>
+                            <span class="tag bg-orange-100 text-orange-700">#CircularEconomy</span>
                         </div>
                         
-                        <a href="#" class="read-more text-sm">Read More →</a>
+
                     </div>
                 </article>
 
-                <!-- Article 5 -->
+                <!-- Article 2: 3D Printing in Schools -->
                 <article class="blog-card">
                     <div class="blog-image">
-                        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Education Technology" class="w-full h-48 object-cover">
+                        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="3D Printing in Education" class="w-full h-48 object-cover">
                     </div>
                     <div class="p-6">
                         <div class="flex items-center mb-3">
                             <span class="tag bg-yellow-100 text-yellow-700">Education</span>
-                            <span class="text-gray-500 text-sm ml-3">December 3, 2024</span>
                         </div>
                         
-                        <h3 class="text-xl font-bold text-gray-900 mb-3">3D Printing in Education: Revolutionizing Learning</h3>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Why 3D Printing Matters in Schools</h3>
                         
                         <p class="text-gray-600 mb-4 text-sm leading-relaxed">
-                            How 3D printing technology is transforming educational experiences and fostering creativity in students.
+                            At Ecocycle Innovations, we believe the classroom of tomorrow must go beyond books and screens. 3D printing brings hands-on creativity, problem-solving, and sustainability awareness directly into students' learning journeys.
                         </p>
+                        
+                        <div class="space-y-2 mb-4 text-sm text-gray-600">
+                            <p>🔬 From building working prototypes to visualizing complex science concepts</p>
+                            <p>🚀 Tinkering labs and makerspaces powered by 3D printing</p>
+                            <p>🌱 End-to-end solutions with recycled EcoPrint filaments</p>
+                        </div>
                         
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="tag bg-yellow-100 text-yellow-700">#Education</span>
-                            <span class="tag bg-purple-100 text-purple-700">#3DPrinting</span>
+                            <span class="tag bg-green-100 text-green-700">#3DPrinting</span>
+                            <span class="tag bg-blue-100 text-blue-700">#Innovation</span>
+                            <span class="tag bg-purple-100 text-purple-700">#Learning</span>
                         </div>
                         
-                        <a href="#" class="read-more text-sm">Read More →</a>
+
                     </div>
                 </article>
 
-                <!-- Article 6 -->
+                <!-- Article 3: Empowering Next Generation -->
                 <article class="blog-card">
                     <div class="blog-image">
-                        <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Consumer Products" class="w-full h-48 object-cover">
+                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Innovation and Collaboration" class="w-full h-48 object-cover">
                     </div>
                     <div class="p-6">
                         <div class="flex items-center mb-3">
-                            <span class="tag bg-orange-100 text-orange-700">Products</span>
-                            <span class="text-gray-500 text-sm ml-3">December 1, 2024</span>
+                            <span class="tag bg-purple-100 text-purple-700">Innovation</span>
                         </div>
                         
-                        <h3 class="text-xl font-bold text-gray-900 mb-3">Eco-Friendly Consumer Products: Market Trends</h3>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Empowering the Next Generation of Innovators</h3>
                         
                         <p class="text-gray-600 mb-4 text-sm leading-relaxed">
-                            Exploring the growing demand for sustainable consumer products and market opportunities.
+                            Our vision is to collaborate with tinkering labs and makerspaces to make 3D printing accessible, sustainable, and impactful for the future of learning.
                         </p>
                         
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="tag bg-orange-100 text-orange-700">#ConsumerProducts</span>
-                            <span class="tag bg-green-100 text-green-700">#EcoFriendly</span>
+                        <div class="space-y-2 mb-4 text-sm text-gray-600">
+                            <p>🇮🇳 Hands-on learning with EcoPrint Filament – Made-in-India</p>
+                            <p>🎓 Enabling schools & colleges with end-to-end solutions</p>
+                            <p>🤝 Opportunities for CSR partners, educators, and makers</p>
                         </div>
                         
-                        <a href="#" class="read-more text-sm">Read More →</a>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tag bg-purple-100 text-purple-700">#Innovation</span>
+                            <span class="tag bg-green-100 text-green-700">#3DPrinting</span>
+                            <span class="tag bg-blue-100 text-blue-700">#Collaboration</span>
+                            <span class="tag bg-orange-100 text-orange-700">#Future</span>
+                        </div>
+                        
+
+                    </div>
+                </article>
+
+                <!-- Article 4: Beyond Textbooks -->
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Experiential Learning" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="tag bg-indigo-100 text-indigo-700">Technology</span>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Beyond Textbooks: The Future of Learning</h3>
+                        
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                            Education is no longer limited to textbooks and blackboards. With 3D printing, students can see, touch, and interact with concepts that were once abstract.
+                        </p>
+                        
+                        <div class="space-y-2 mb-4 text-sm text-gray-600">
+                            <p>🧪 Visualizing molecules in chemistry, building historical monuments</p>
+                            <p>🎯 Prototyping science projects with endless possibilities</p>
+                            <p>📚 End-to-end 3D printing facilities with training modules</p>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tag bg-indigo-100 text-indigo-700">#Technology</span>
+                            <span class="tag bg-yellow-100 text-yellow-700">#Education</span>
+                            <span class="tag bg-green-100 text-green-700">#Experiential</span>
+                            <span class="tag bg-purple-100 text-purple-700">#Innovation</span>
+                        </div>
+                        
+
                     </div>
                 </article>
             </div>
@@ -546,6 +535,8 @@
                 }
             });
         });
+
+
     </script>
 </body>
 </html>

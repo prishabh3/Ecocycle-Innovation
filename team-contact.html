@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team & Contact | EcoCycle Innovations</title>
+    <title>Team & Contact | Ecocycle Innovations</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -28,7 +28,7 @@
         }
         
         .hero-gradient {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+            background: linear-gradient(135deg, #064e3b 0%, #065f46 25%, #047857 50%, #059669 75%, #10b981 100%);
             position: relative;
             overflow: hidden;
         }
@@ -40,8 +40,10 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at 20% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
-                       radial-gradient(circle at 80% 20%, rgba(20, 184, 166, 0.1) 0%, transparent 50%);
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(34, 197, 94, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(6, 78, 59, 0.1) 0%, transparent 70%);
             pointer-events: none;
         }
         
@@ -159,20 +161,22 @@
 </head>
 <body class="bg-gray-50">
     <!-- Navigation -->
-    <nav class="nav-glass shadow-lg fixed w-full z-50">
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
+            <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
-                    <div class="flex-shrink-0 flex items-center">
-                        <span class="text-primary font-bold text-2xl font-['Outfit']">EcoCycle Innovations</span>
-                    </div>
-                    <div class="hidden md:ml-10 md:flex md:space-x-8">
-                        <a href="index.html" class="text-gray-600 hover:text-primary px-3 py-2 text-sm font-medium transition-colors">Home</a>
-                        <a href="about.html" class="text-gray-600 hover:text-primary px-3 py-2 text-sm font-medium transition-colors">About</a>
-                        <a href="products.html" class="text-gray-600 hover:text-primary px-3 py-2 text-sm font-medium transition-colors">Products</a>
-                        <a href="technology.html" class="text-gray-600 hover:text-primary px-3 py-2 text-sm font-medium transition-colors">Technology</a>
-                        <a href="blog.html" class="text-gray-600 hover:text-primary px-3 py-2 text-sm font-medium transition-colors">Blog</a>
-                        <a href="team-contact.html" class="text-primary border-b-2 border-primary px-3 py-2 text-sm font-medium">Team & Contact</a>
+                    <a href="index.html" class="text-xl font-bold text-gray-900 font-['Outfit']">
+                        Ecocycle <span class="text-primary">Innovations</span>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="index.html" class="text-gray-600 hover:text-primary transition-colors">Home</a>
+                        <a href="about.html" class="text-gray-600 hover:text-primary transition-colors">About</a>
+                        <a href="products.html" class="text-gray-600 hover:text-primary transition-colors">Products</a>
+                        <a href="technology.html" class="text-gray-600 hover:text-primary transition-colors">Technology</a>
+                        <a href="blog.html" class="text-gray-600 hover:text-primary transition-colors">Blog</a>
+                        <a href="team-contact.html" class="text-primary font-semibold">Team & Contact</a>
                     </div>
                 </div>
             </div>
@@ -197,7 +201,7 @@
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold section-title mb-4">Our Expert Team</h2>
                 <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-                    Co-founders with PhDs in manufacturing, bringing over 10 years of combined expertise in mechatronics, industrial automation, additive manufacturing, and sustainable product development.
+                    Co-founders with PhDs in manufacturing, along with dedicated research scholars, bringing over 10 years of combined expertise in mechatronics, industrial automation, additive manufacturing, and sustainable product development.
                 </p>
             </div>
             
@@ -207,7 +211,7 @@
                         <i class="fas fa-user-graduate text-white text-4xl"></i>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-2">Dr. Manoj Nikam</h3>
-                    <p class="text-primary font-semibold mb-4">Co-Founder, EcoCycle Innovations</p>
+                    <p class="text-primary font-semibold mb-4">Co-Founder, Ecocycle Innovations</p>
                     <div class="text-gray-600 mb-4 text-left space-y-2">
                         <p><strong>📞 Contact:</strong> +91-9004001953</p>
                         <p><strong>🎓 Expertise (10+ years):</strong></p>
@@ -233,7 +237,7 @@
                         <img src="Tribeni.png" alt="Dr. Tribeni Roy" class="w-full h-full object-cover">
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-2">Dr. Tribeni Roy</h3>
-                    <p class="text-primary font-semibold mb-4">Co-Founder, EcoCycle Innovations</p>
+                    <p class="text-primary font-semibold mb-4">Co-Founder, Ecocycle Innovations</p>
                     <p class="text-primary text-sm mb-2">Assistant Professor (Mechanical Engineering), BITS Pilani</p>
                     <div class="text-gray-600 mb-4 text-left space-y-2">
                         <p><strong>📞 Contact:</strong> +91-9969535867</p>
@@ -251,6 +255,70 @@
                         <a href="mailto:tribeni.roy@ecocycleinnovations1@gmail.com" class="text-primary hover:text-primary-dark transition-colors p-2 rounded-full bg-gray-100 hover:bg-gray-200">
                             <i class="fas fa-envelope"></i>
                         </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Research Scholars Section -->
+            <div class="mt-16">
+                <div class="text-center mb-12">
+                    <h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Research Scholars</h3>
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                        Our dedicated research scholars working on cutting-edge projects in sustainable manufacturing and innovative materials.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <!-- Research Scholar 1 -->
+                    <div class="team-member bg-white rounded-3xl p-8 text-center shadow-lg border border-gray-100">
+                        <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden">
+                            <img src="Soumili.png" alt="Soumili Sahoo" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Soumili Sahoo</h3>
+                        <p class="text-primary font-semibold mb-4">Research Scholar</p>
+                        <p class="text-emerald-600 text-sm mb-2">PhD in Mechanical Engineering (Ongoing)</p>
+                        <div class="text-gray-600 mb-4 text-left space-y-2">
+                            <p><strong>🔬 Research Focus:</strong></p>
+                            <ul class="list-disc list-inside text-sm space-y-1">
+                                <li>Fabricating energy storage device using 3D printed parts</li>
+                                <li>Advanced materials for sustainable energy solutions</li>
+                                <li>Innovative manufacturing processes</li>
+                            </ul>
+                        </div>
+                        <div class="flex justify-center space-x-3">
+                            <a href="#" class="text-primary hover:text-primary-dark transition-colors p-2 rounded-full bg-gray-100 hover:bg-gray-200">
+                                <i class="fas fa-linkedin"></i>
+                            </a>
+                            <a href="#" class="text-primary hover:text-primary-dark transition-colors p-2 rounded-full bg-gray-100 hover:bg-gray-200">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Research Scholar 2 -->
+                    <div class="team-member bg-white rounded-3xl p-8 text-center shadow-lg border border-gray-100">
+                        <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden">
+                            <img src="Astha.png" alt="Astha Pujara" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Astha Pujara</h3>
+                        <p class="text-primary font-semibold mb-4">Research Scholar</p>
+                        <p class="text-blue-600 text-sm mb-2">PhD in Mechanical Engineering (Ongoing)</p>
+                        <div class="text-gray-600 mb-4 text-left space-y-2">
+                            <p><strong>🔬 Research Focus:</strong></p>
+                            <ul class="list-disc list-inside text-sm space-y-1">
+                                <li>Extracting innovative 3D printing materials</li>
+                                <li>Sustainable material development</li>
+                                <li>Advanced additive manufacturing</li>
+                            </ul>
+                        </div>
+                        <div class="flex justify-center space-x-3">
+                            <a href="#" class="text-primary hover:text-primary-dark transition-colors p-2 rounded-full bg-gray-100 hover:bg-gray-200">
+                                <i class="fas fa-linkedin"></i>
+                            </a>
+                            <a href="#" class="text-primary hover:text-primary-dark transition-colors p-2 rounded-full bg-gray-100 hover:bg-gray-200">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -388,7 +456,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
-                    <h3 class="text-xl font-bold mb-4 font-['Outfit']">EcoCycle Innovations</h3>
+                    <h3 class="text-xl font-bold mb-4 font-['Outfit']">Ecocycle Innovations</h3>
                     <p class="text-gray-400">
                         Transforming waste into wealth through advanced engineering and sustainable manufacturing solutions.
                     </p>
@@ -425,7 +493,7 @@
                 </div>
             </div>
             <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-                <p>© 2024 EcoCycle Innovations. All rights reserved.</p>
+                <p>© 2024 Ecocycle Innovations. All rights reserved.</p>
             </div>
         </div>
     </footer>
