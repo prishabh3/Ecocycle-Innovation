@@ -205,6 +205,8 @@
             <div class="form-card p-8">
                 <h2 class="text-2xl font-bold section-title mb-6">Add New Blog Post</h2>
                 
+
+                
                 <form id="blogForm" class="space-y-6">
                     <!-- Title -->
                     <div>
@@ -554,61 +556,15 @@
             updateTagDisplay();
         }
 
-        // Handle form submission
-        document.getElementById('blogForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            
-            // Handle image - check for file upload first, then URL
-            let imageUrl = '';
-            const imageFile = formData.get('imageFile');
-            const imageUrlInput = formData.get('imageUrl');
-            
-            if (imageFile && imageFile.size > 0) {
-                // File was uploaded - convert to data URL
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const newPost = {
-                        id: Date.now(), // Simple ID generation
-                        title: formData.get('title'),
-                        content: formData.get('content'),
-                        image: e.target.result, // Use data URL from file
-                        date: new Date().toISOString().split('T')[0],
-                        author: formData.get('author') || 'Ecocycle Team',
-                        tags: currentTags.length > 0 ? currentTags : (formData.get('tags') || '').split(',').map(tag => tag.trim()).filter(tag => tag),
-                        category: formData.get('category'),
-                        featured: formData.has('featured')
-                    };
-                    
-                    processBlogPost(newPost);
-                };
-                reader.readAsDataURL(imageFile);
-                return; // Exit early, processBlogPost will be called from reader.onload
-            } else if (imageUrlInput) {
-                // URL was provided
-                imageUrl = imageUrlInput;
-            }
-            
-            const newPost = {
-                id: Date.now(), // Simple ID generation
-                title: formData.get('title'),
-                content: formData.get('content'),
-                image: imageUrl,
-                date: new Date().toISOString().split('T')[0],
-                author: formData.get('author') || 'Ecocycle Team',
-                tags: currentTags.length > 0 ? currentTags : (formData.get('tags') || '').split(',').map(tag => tag.trim()).filter(tag => tag),
-                category: formData.get('category'),
-                featured: formData.has('featured')
-            };
-
-            processBlogPost(newPost);
-        });
+        // Form submission handler (moved to separate function)
         
         // Process blog post (extracted from form submission)
         function processBlogPost(newPost) {
+            console.log('Processing blog post:', newPost);
+            
             // Validate required fields
             if (!newPost.title || !newPost.content) {
+                console.log('Validation failed - missing required fields');
                 showError('Please fill in all required fields (Title and Content).');
                 return;
             }
@@ -641,7 +597,7 @@
             
             // Update recent posts display
             displayRecentPosts();
-        });
+        }
 
         // Save blog post (simulate saving)
         function saveBlogPost(post) {
@@ -653,12 +609,26 @@
             localStorage.setItem('newBlogPost', JSON.stringify(post));
         }
 
-        // Show success message
-        function showSuccess(message) {
+        // Show success message (global function)
+        window.showSuccess = function(message) {
+            console.log('Showing success message:', message);
             const successDiv = document.getElementById('successMessage');
             const successText = document.getElementById('successText');
+            
+            if (!successDiv || !successText) {
+                console.error('Success message elements not found!');
+                // Fallback: show alert
+                alert('✅ ' + message);
+                return;
+            }
+            
             successText.textContent = message;
             successDiv.style.display = 'block';
+            successDiv.style.position = 'fixed';
+            successDiv.style.top = '20px';
+            successDiv.style.right = '20px';
+            successDiv.style.zIndex = '9999';
+            console.log('Success message displayed');
             
             // Add close button functionality
             const closeBtn = successDiv.querySelector('.close-btn');
@@ -672,7 +642,7 @@
             setTimeout(() => {
                 successDiv.style.display = 'none';
             }, 6000);
-        }
+        };
 
         // Show error message
         function showError(message) {
@@ -720,8 +690,79 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('Admin page loaded successfully');
+            console.log('Success message element:', document.getElementById('successMessage'));
+            console.log('Success text element:', document.getElementById('successText'));
+            
+            // Check if form exists
+            const form = document.getElementById('blogForm');
+            console.log('Blog form element:', form);
+            
+            if (form) {
+                console.log('Form found, adding event listener');
+                // Remove any existing listeners and add fresh one
+                form.removeEventListener('submit', handleFormSubmit);
+                form.addEventListener('submit', handleFormSubmit);
+            } else {
+                console.error('Blog form not found!');
+            }
+            
             loadBlogPosts();
         });
+        
+        // Extract form submission handler
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            console.log('Form submitted via handler!');
+            
+            const formData = new FormData(this);
+            
+            // Handle image - check for file upload first, then URL
+            let imageUrl = '';
+            const imageFile = formData.get('imageFile');
+            const imageUrlInput = formData.get('imageUrl');
+            
+            if (imageFile && imageFile.size > 0) {
+                // File was uploaded - convert to data URL
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const newPost = {
+                        id: Date.now(), // Simple ID generation
+                        title: formData.get('title'),
+                        content: formData.get('content'),
+                        image: e.target.result, // Use data URL from file
+                        date: new Date().toISOString().split('T')[0],
+                        author: formData.get('author') || 'Ecocycle Team',
+                        tags: currentTags.length > 0 ? currentTags : (formData.get('tags') || '').split(',').map(tag => tag.trim()).filter(tag => tag),
+                        category: formData.get('category'),
+                        featured: formData.has('featured')
+                    };
+                    
+                    processBlogPost(newPost);
+                };
+                reader.readAsDataURL(imageFile);
+                return; // Exit early, processBlogPost will be called from reader.onload
+            } else if (imageUrlInput) {
+                // URL was provided
+                imageUrl = imageUrlInput;
+            }
+            
+            const newPost = {
+                id: Date.now(), // Simple ID generation
+                title: formData.get('title'),
+                content: formData.get('content'),
+                image: imageUrl,
+                date: new Date().toISOString().split('T')[0],
+                author: formData.get('author') || 'Ecocycle Team',
+                tags: currentTags.length > 0 ? currentTags : (formData.get('tags') || '').split(',').map(tag => tag.trim()).filter(tag => tag),
+                category: formData.get('category'),
+                featured: formData.has('featured')
+            };
+
+            processBlogPost(newPost);
+        }
     </script>
+    
+
 </body>
 </html>

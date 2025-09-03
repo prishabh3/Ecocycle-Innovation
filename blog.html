@@ -384,28 +384,37 @@
         // Load blog posts from JSON
         async function loadBlogPosts() {
             try {
+                console.log('Loading blog posts...');
                 const response = await fetch('blog-posts.json');
                 const data = await response.json();
                 blogPosts = data.posts;
+                console.log('Loaded', blogPosts.length, 'posts from JSON');
                 
                 // Check for new posts from localStorage (from admin panel)
                 const newPost = localStorage.getItem('newBlogPost');
                 if (newPost) {
+                    console.log('Found new post in localStorage:', newPost);
                     const parsedPost = JSON.parse(newPost);
                     blogPosts.unshift(parsedPost);
                     localStorage.removeItem('newBlogPost');
+                    console.log('Added new post, total posts:', blogPosts.length);
+                } else {
+                    console.log('No new posts in localStorage');
                 }
                 
                 // Check for deleted posts from localStorage
                 const deletedPost = localStorage.getItem('deletedPost');
                 if (deletedPost) {
+                    console.log('Found deleted post in localStorage:', deletedPost);
                     const deletedData = JSON.parse(deletedPost);
                     blogPosts = blogPosts.filter(post => post.id !== deletedData.id);
                     localStorage.removeItem('deletedPost');
+                    console.log('Removed deleted post, total posts:', blogPosts.length);
                 }
                 
                 displayFeaturedPost();
                 displayBlogPosts();
+                console.log('Blog posts display updated');
             } catch (error) {
                 console.error('Error loading blog posts:', error);
                 // Fallback to static content if JSON fails to load
@@ -606,6 +615,15 @@
         document.addEventListener('DOMContentLoaded', function() {
             loadBlogPosts();
         });
+        
+        // Add a refresh button for testing
+        function refreshBlogPosts() {
+            console.log('Refreshing blog posts...');
+            loadBlogPosts();
+        }
+        
+        // Auto-refresh every 5 seconds for testing (remove in production)
+        // setInterval(refreshBlogPosts, 5000);
 
     </script>
 </body>
