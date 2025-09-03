@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Debug - Ecocycle Innovations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6">Blog System Debug</h1>
+        
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">Current localStorage Contents:</h2>
+            <div id="localStorageContent" class="bg-gray-100 p-4 rounded-lg">
+                <p>Loading...</p>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">Blog Posts from JSON:</h2>
+            <div id="jsonPosts" class="bg-gray-100 p-4 rounded-lg">
+                <p>Loading...</p>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">Combined Blog Posts:</h2>
+            <div id="combinedPosts" class="bg-gray-100 p-4 rounded-lg">
+                <p>Loading...</p>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-xl font-semibold mb-4">Test Actions:</h2>
+            <div class="space-y-4">
+                <button onclick="testAddPost()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    Test Add Post
+                </button>
+                <button onclick="clearLocalStorage()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                    Clear localStorage
+                </button>
+                <button onclick="refreshData()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                    Refresh Data
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let blogPosts = [];
+        
+        // Load and display all data
+        async function loadAllData() {
+            // Show localStorage contents
+            const localStorageData = {
+                newBlogPost: localStorage.getItem('newBlogPost'),
+                deletedPost: localStorage.getItem('deletedPost'),
+                allKeys: Object.keys(localStorage)
+            };
+            
+            document.getElementById('localStorageContent').innerHTML = 
+                '<pre>' + JSON.stringify(localStorageData, null, 2) + '</pre>';
+            
+            // Load JSON posts
+            try {
+                const response = await fetch('blog-posts.json');
+                const data = await response.json();
+                blogPosts = data.posts;
+                
+                document.getElementById('jsonPosts').innerHTML = 
+                    '<pre>' + JSON.stringify(blogPosts, null, 2) + '</pre>';
+                
+                // Check for new posts from localStorage
+                const newPost = localStorage.getItem('newBlogPost');
+                if (newPost) {
+                    const parsedPost = JSON.parse(newPost);
+                    blogPosts.unshift(parsedPost);
+                    console.log('Added new post from localStorage:', parsedPost);
+                }
+                
+                // Check for deleted posts
+                const deletedPost = localStorage.getItem('deletedPost');
+                if (deletedPost) {
+                    const deletedData = JSON.parse(deletedPost);
+                    blogPosts = blogPosts.filter(post => post.id !== deletedData.id);
+                    console.log('Removed deleted post:', deletedData);
+                }
+                
+                document.getElementById('combinedPosts').innerHTML = 
+                    '<pre>' + JSON.stringify(blogPosts, null, 2) + '</pre>';
+                    
+            } catch (error) {
+                console.error('Error loading blog posts:', error);
+                document.getElementById('jsonPosts').innerHTML = 
+                    '<p class="text-red-600">Error loading blog posts: ' + error.message + '</p>';
+            }
+        }
+        
+        // Test adding a post
+        function testAddPost() {
+            const testPost = {
+                id: Date.now(),
+                title: "Test Post - " + new Date().toLocaleString(),
+                content: "This is a test post created at " + new Date().toLocaleString(),
+                image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                date: new Date().toISOString().split('T')[0],
+                author: "Test User",
+                tags: ["Test", "Debug"],
+                category: "Test",
+                featured: false
+            };
+            
+            localStorage.setItem('newBlogPost', JSON.stringify(testPost));
+            console.log('Test post added to localStorage:', testPost);
+            refreshData();
+        }
+        
+        // Clear localStorage
+        function clearLocalStorage() {
+            localStorage.removeItem('newBlogPost');
+            localStorage.removeItem('deletedPost');
+            console.log('localStorage cleared');
+            refreshData();
+        }
+        
+        // Refresh all data
+        function refreshData() {
+            loadAllData();
+        }
+        
+        // Load data when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAllData();
+        });
+    </script>
+</body>
+</html>

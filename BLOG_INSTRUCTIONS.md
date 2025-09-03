@@ -14,7 +14,7 @@
 - **Content**: Write your blog post content in the text area
 
 #### Optional Fields:
-- **Image URL**: Provide a URL to an image for your post (if no image is provided, a default image will be used)
+- **Image**: Add an image to your post using either file upload or URL (if no image is provided, a default image will be used)
 - **Author**: Leave as "Ecocycle Team" or change if needed
 - **Category**: Choose from Sustainability, Education, Innovation, Technology, or Featured
 - **Tags**: Add relevant tags separated by commas (e.g., Sustainability, Innovation, 3DPrinting)
@@ -22,25 +22,22 @@
 
 ### Step 3: Adding Images
 
-Since you can't upload files directly, you'll need to use an image hosting service:
+You now have **two ways** to add images to your blog posts:
 
-#### Option 1: Imgur (Recommended)
-1. Go to [imgur.com](https://imgur.com)
-2. Click "New Post" and upload your image
-3. Copy the direct image URL (ends with .jpg, .png, etc.)
-4. Paste this URL in the "Image URL" field
+#### Option 1: Upload from Computer (Recommended)
+1. Click "Choose File" button under "Upload from Computer"
+2. Select an image from your computer (JPG, PNG, GIF, WebP)
+3. The image will be automatically processed and added to your post
+4. **File size limit**: 5MB maximum
+5. You'll see a preview of your image before submitting
 
-#### Option 2: PostImages
-1. Go to [postimages.org](https://postimages.org)
-2. Upload your image
-3. Copy the "Direct Link" URL
-4. Paste this URL in the "Image URL" field
+#### Option 2: Use Image URL
+If you prefer to use an image from the internet:
 
-#### Option 3: Unsplash (For stock photos)
-1. Go to [unsplash.com](https://unsplash.com)
-2. Search for relevant images
-3. Click on an image and copy its URL
-4. Paste this URL in the "Image URL" field
+1. **Imgur**: Go to [imgur.com](https://imgur.com) → Upload image → Copy direct URL
+2. **PostImages**: Go to [postimages.org](https://postimages.org) → Upload → Copy "Direct Link"
+3. **Unsplash**: Go to [unsplash.com](https://unsplash.com) → Find image → Copy URL
+4. Paste the URL in the "Use Image URL" field
 
 ### Step 4: Preview and Submit
 1. As you type the image URL, you'll see a preview of the image
@@ -91,9 +88,11 @@ Since you can't upload files directly, you'll need to use an image hosting servi
 3. Check the browser console for any error messages
 
 ### If the image doesn't show:
-1. Make sure the image URL is a direct link to the image file
-2. The URL should end with .jpg, .png, .gif, etc.
-3. Try a different image hosting service
+1. **For file uploads**: Make sure the file is under 5MB and is a valid image format (JPG, PNG, GIF, WebP)
+2. **For URLs**: Make sure the image URL is a direct link to the image file
+3. **For URLs**: The URL should end with .jpg, .png, .gif, etc.
+4. **For URLs**: Try a different image hosting service
+5. **General**: Check the browser console for any error messages
 
 ### If you need to edit or delete a post:
 - **Delete**: You can delete posts by clicking the red trash icon that appears when you hover over any post (both in the admin panel and on the blog page)
