@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Triple Click</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6">
+        <h1 class="text-2xl font-bold mb-4">Triple Click Test</h1>
+        
+        <div class="mb-4">
+            <p class="text-gray-600 mb-2">Click the logo below 3 times quickly:</p>
+            <a href="#" id="testLogo" class="text-xl font-bold text-blue-600 cursor-pointer hover:text-blue-800 transition-colors">
+                Ecocycle <span class="text-green-600">Innovations</span>
+            </a>
+        </div>
+        
+        <div id="result" class="p-4 bg-gray-50 rounded-lg" style="display: none;">
+            <p class="text-green-600 font-semibold">✅ Triple click detected! Admin access would be revealed.</p>
+        </div>
+        
+        <div class="mt-4 text-sm text-gray-500">
+            <p>Click count: <span id="clickCount">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        let clickCount = 0;
+        let clickTimer = null;
+        const logo = document.getElementById('testLogo');
+        const result = document.getElementById('result');
+        const countDisplay = document.getElementById('clickCount');
+        
+        logo.addEventListener('click', function(e) {
+            e.preventDefault();
+            clickCount++;
+            countDisplay.textContent = clickCount;
+            
+            console.log('Click count:', clickCount);
+            
+            // Clear existing timer
+            if (clickTimer) {
+                clearTimeout(clickTimer);
+            }
+            
+            if (clickCount >= 3) {
+                result.style.display = 'block';
+                console.log('Triple click detected!');
+                clickCount = 0;
+                countDisplay.textContent = '0';
+                return;
+            }
+            
+            // Reset counter after 1 second
+            clickTimer = setTimeout(() => {
+                clickCount = 0;
+                countDisplay.textContent = '0';
+                console.log('Click count reset');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

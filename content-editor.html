@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Editor - Ecocycle Innovations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #10b981;
+            --accent: #f59e0b;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #064e3b 0%, #065f46 25%, #047857 50%, #059669 75%, #10b981 100%);
+        }
+        
+        .section-title {
+            background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .editor-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(15, 118, 110, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+        }
+        
+        .content-section {
+            border: 2px dashed #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .content-section:hover {
+            border-color: var(--primary);
+            background: rgba(16, 185, 129, 0.02);
+        }
+        
+        .content-section.editing {
+            border-color: var(--primary);
+            background: rgba(16, 185, 129, 0.05);
+        }
+        
+        .rich-editor {
+            min-height: 200px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+        
+        .rich-editor:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+        
+        .toolbar {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px 8px 0 0;
+            padding: 8px 12px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .toolbar button {
+            padding: 6px 12px;
+            border: 1px solid #d1d5db;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .toolbar button:hover {
+            background: #f3f4f6;
+            border-color: var(--primary);
+        }
+        
+        .toolbar button.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+    </style>
+</head>
+<body class="font-['Outfit'] bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="admin-dashboard.html" class="text-xl font-bold text-gray-900 font-['Outfit']">
+                        <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="text-gray-600 hover:text-primary transition-colors">
+                        <i class="fas fa-eye mr-2"></i>View Website
+                    </a>
+                    <a href="admin-dashboard.html" class="text-gray-600 hover:text-primary transition-colors">
+                        <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
+                    </a>
+                    <button onclick="saveAllChanges()" class="btn-primary px-6 py-2 rounded-lg font-semibold text-white">
+                        <i class="fas fa-save mr-2"></i>Save All Changes
+                    </button>
+                    <button onclick="logout()" class="text-red-600 hover:text-red-700 transition-colors">
+                        <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient py-12 relative overflow-hidden">
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                Content Editor
+            </h1>
+            <p class="text-lg text-gray-200">
+                Edit text content across your entire website
+            </p>
+        </div>
+    </section>
+
+    <!-- Page Selector -->
+    <section class="py-8 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold section-title mb-4">Select Page to Edit</h2>
+                <p class="text-gray-600">Choose which page you want to edit content for</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <button onclick="loadPageContent('home')" class="editor-card p-6 text-center hover:shadow-lg transition-shadow">
+                    <i class="fas fa-home text-primary text-3xl mb-4"></i>
+                    <h3 class="font-semibold text-gray-900 mb-2">Homepage</h3>
+                    <p class="text-sm text-gray-600">Main landing page content</p>
+                </button>
+                
+                <button onclick="loadPageContent('about')" class="editor-card p-6 text-center hover:shadow-lg transition-shadow">
+                    <i class="fas fa-info-circle text-blue-600 text-3xl mb-4"></i>
+                    <h3 class="font-semibold text-gray-900 mb-2">About Page</h3>
+                    <p class="text-sm text-gray-600">Company information and story</p>
+                </button>
+                
+                <button onclick="loadPageContent('products')" class="editor-card p-6 text-center hover:shadow-lg transition-shadow">
+                    <i class="fas fa-box text-green-600 text-3xl mb-4"></i>
+                    <h3 class="font-semibold text-gray-900 mb-2">Products Page</h3>
+                    <p class="text-sm text-gray-600">Product descriptions and details</p>
+                </button>
+                
+                <button onclick="loadPageContent('technology')" class="editor-card p-6 text-center hover:shadow-lg transition-shadow">
+                    <i class="fas fa-cogs text-purple-600 text-3xl mb-4"></i>
+                    <h3 class="font-semibold text-gray-900 mb-2">Technology Page</h3>
+                    <p class="text-sm text-gray-600">Technical information and features</p>
+                </button>
+                
+                <button onclick="loadPageContent('team')" class="editor-card p-6 text-center hover:shadow-lg transition-shadow">
+                    <i class="fas fa-users text-yellow-600 text-3xl mb-4"></i>
+                    <h3 class="font-semibold text-gray-900 mb-2">Team Page</h3>
+                    <p class="text-sm text-gray-600">Team member information</p>
+                </button>
+                
+                <button onclick="loadPageContent('contact')" class="editor-card p-6 text-center hover:shadow-lg transition-shadow">
+                    <i class="fas fa-envelope text-red-600 text-3xl mb-4"></i>
+                    <h3 class="font-semibold text-gray-900 mb-2">Contact Page</h3>
+                    <p class="text-sm text-gray-600">Contact information and details</p>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Editor -->
+    <section class="py-12 bg-gray-50" id="contentEditor" style="display: none;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold section-title mb-4" id="pageTitle">Edit Content</h2>
+                <p class="text-gray-600">Click on any section below to edit its content</p>
+            </div>
+            
+            <div id="contentSections" class="space-y-6">
+                <!-- Content sections will be loaded here dynamically -->
+            </div>
+            
+            <div class="mt-8 text-center">
+                <button onclick="saveAllChanges()" class="btn-primary px-8 py-4 rounded-lg font-semibold text-white mr-4">
+                    <i class="fas fa-save mr-2"></i>Save All Changes
+                </button>
+                <button onclick="previewChanges()" class="btn-secondary px-8 py-4 rounded-lg font-semibold text-white">
+                    <i class="fas fa-eye mr-2"></i>Preview Changes
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Message -->
+    <div id="successMessage" class="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50" style="display: none;">
+        <i class="fas fa-check-circle mr-2"></i>
+        <span id="successText">Changes saved successfully!</span>
+    </div>
+
+    <script>
+        // Check authentication
+        document.addEventListener('DOMContentLoaded', function() {
+            const isAuthenticated = sessionStorage.getItem('adminAuthenticated');
+            const loginTime = sessionStorage.getItem('adminLoginTime');
+            const sessionId = sessionStorage.getItem('adminSessionId');
+            
+            // Check if login is still valid (24 hours)
+            if (!isAuthenticated || !loginTime || !sessionId) {
+                // Not authenticated, redirect to login
+                window.location.href = 'admin-login.html';
+                return;
+            }
+            
+            const timeDiff = Date.now() - parseInt(loginTime);
+            const hoursDiff = timeDiff / (1000 * 60 * 60);
+            
+            if (hoursDiff >= 24) {
+                // Session expired, clear storage and redirect
+                clearSession();
+                window.location.href = 'admin-login.html';
+                return;
+            }
+            
+            // Load content editor
+            loadSavedContent();
+        });
+        
+        // Clear session data
+        function clearSession() {
+            sessionStorage.removeItem('adminAuthenticated');
+            sessionStorage.removeItem('adminLoginTime');
+            sessionStorage.removeItem('adminUsername');
+            sessionStorage.removeItem('adminRole');
+            sessionStorage.removeItem('adminSessionId');
+        }
+        
+        // Logout function
+        function logout() {
+            clearSession();
+            window.location.href = 'admin-login.html';
+        }
+        
+        let currentPage = '';
+        let contentData = {};
+        let originalContent = {};
+
+        // Sample content data for different pages
+        const pageContent = {
+            home: {
+                title: 'Homepage Content',
+                sections: [
+                    {
+                        id: 'hero-title',
+                        title: 'Hero Section Title',
+                        content: 'Transforming Waste into Wealth',
+                        type: 'text'
+                    },
+                    {
+                        id: 'hero-subtitle',
+                        title: 'Hero Section Subtitle',
+                        content: 'Pioneering sustainable manufacturing by converting recycled materials into high-value products through advanced engineering and IoT-enabled automation.',
+                        type: 'textarea'
+                    },
+                    {
+                        id: 'cta-text',
+                        title: 'Call to Action Text',
+                        content: 'Ready to Transform Your Waste into Value?',
+                        type: 'text'
+                    }
+                ]
+            },
+            about: {
+                title: 'About Page Content',
+                sections: [
+                    {
+                        id: 'about-title',
+                        title: 'About Us Title',
+                        content: 'About Ecocycle Innovations',
+                        type: 'text'
+                    },
+                    {
+                        id: 'about-description',
+                        title: 'About Description',
+                        content: 'We are a pioneering company dedicated to transforming waste into wealth through innovative recycling and advanced manufacturing solutions.',
+                        type: 'textarea'
+                    },
+                    {
+                        id: 'mission-statement',
+                        title: 'Mission Statement',
+                        content: 'Our mission is to create a sustainable future by converting waste materials into high-value products that benefit both the environment and society.',
+                        type: 'textarea'
+                    }
+                ]
+            },
+            products: {
+                title: 'Products Page Content',
+                sections: [
+                    {
+                        id: 'products-title',
+                        title: 'Products Section Title',
+                        content: 'Our High-Value Products',
+                        type: 'text'
+                    },
+                    {
+                        id: 'products-description',
+                        title: 'Products Description',
+                        content: 'Transforming recycled materials into innovative solutions that power modern manufacturing and sustainable development.',
+                        type: 'textarea'
+                    },
+                    {
+                        id: 'product1-title',
+                        title: 'Product 1 Title',
+                        content: '3D Printing Filaments',
+                        type: 'text'
+                    },
+                    {
+                        id: 'product1-description',
+                        title: 'Product 1 Description',
+                        content: 'Premium quality filaments made from recycled materials, offering excellent print quality and sustainability for additive manufacturing.',
+                        type: 'textarea'
+                    }
+                ]
+            },
+            technology: {
+                title: 'Technology Page Content',
+                sections: [
+                    {
+                        id: 'tech-title',
+                        title: 'Technology Section Title',
+                        content: 'Advanced Technology Solutions',
+                        type: 'text'
+                    },
+                    {
+                        id: 'tech-description',
+                        title: 'Technology Description',
+                        content: 'Our cutting-edge technology combines IoT-enabled automation with sustainable manufacturing processes.',
+                        type: 'textarea'
+                    }
+                ]
+            },
+            team: {
+                title: 'Team Page Content',
+                sections: [
+                    {
+                        id: 'team-title',
+                        title: 'Team Section Title',
+                        content: 'Meet Our Team',
+                        type: 'text'
+                    },
+                    {
+                        id: 'team-description',
+                        title: 'Team Description',
+                        content: 'Our dedicated team of experts is committed to driving innovation in sustainable manufacturing.',
+                        type: 'textarea'
+                    }
+                ]
+            },
+            contact: {
+                title: 'Contact Page Content',
+                sections: [
+                    {
+                        id: 'contact-title',
+                        title: 'Contact Section Title',
+                        content: 'Get in Touch',
+                        type: 'text'
+                    },
+                    {
+                        id: 'contact-description',
+                        title: 'Contact Description',
+                        content: 'Ready to start your sustainable manufacturing journey? Contact us today.',
+                        type: 'textarea'
+                    },
+                    {
+                        id: 'contact-email',
+                        title: 'Contact Email',
+                        content: 'ecocycleinnovations1@gmail.com',
+                        type: 'text'
+                    },
+                    {
+                        id: 'contact-address',
+                        title: 'Contact Address',
+                        content: 'Rakesh Kapoor Innovation Centre, Pilani, Rajasthan - 333031',
+                        type: 'textarea'
+                    }
+                ]
+            }
+        };
+
+        function loadPageContent(page) {
+            currentPage = page;
+            const pageData = pageContent[page];
+            
+            if (!pageData) {
+                alert('Page content not found!');
+                return;
+            }
+
+            // Show content editor
+            document.getElementById('contentEditor').style.display = 'block';
+            document.getElementById('pageTitle').textContent = pageData.title;
+            
+            // Load content sections
+            const sectionsContainer = document.getElementById('contentSections');
+            sectionsContainer.innerHTML = '';
+            
+            pageData.sections.forEach(section => {
+                const sectionElement = createContentSection(section);
+                sectionsContainer.appendChild(sectionElement);
+            });
+
+            // Store original content for comparison
+            originalContent = JSON.parse(JSON.stringify(pageData));
+        }
+
+        function createContentSection(section) {
+            const sectionDiv = document.createElement('div');
+            sectionDiv.className = 'content-section';
+            sectionDiv.innerHTML = `
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold text-gray-900">${section.title}</h3>
+                    <button onclick="editSection('${section.id}')" class="btn-primary px-4 py-2 rounded-lg text-white text-sm">
+                        <i class="fas fa-edit mr-2"></i>Edit
+                    </button>
+                </div>
+                <div class="content-display" id="display-${section.id}">
+                    ${section.type === 'textarea' ? section.content.replace(/\n/g, '<br>') : section.content}
+                </div>
+                <div class="content-editor" id="editor-${section.id}" style="display: none;">
+                    ${createEditor(section)}
+                </div>
+            `;
+            return sectionDiv;
+        }
+
+        function createEditor(section) {
+            if (section.type === 'textarea') {
+                return `
+                    <div class="toolbar">
+                        <button onclick="formatText('${section.id}', 'bold')" title="Bold"><i class="fas fa-bold"></i></button>
+                        <button onclick="formatText('${section.id}', 'italic')" title="Italic"><i class="fas fa-italic"></i></button>
+                        <button onclick="formatText('${section.id}', 'underline')" title="Underline"><i class="fas fa-underline"></i></button>
+                        <button onclick="insertLineBreak('${section.id}')" title="Line Break"><i class="fas fa-level-down-alt"></i></button>
+                    </div>
+                    <div class="rich-editor" contenteditable="true" id="edit-${section.id}">${section.content}</div>
+                    <div class="mt-4 flex gap-2">
+                        <button onclick="saveSection('${section.id}')" class="btn-primary px-4 py-2 rounded-lg text-white text-sm">
+                            <i class="fas fa-save mr-2"></i>Save
+                        </button>
+                        <button onclick="cancelEdit('${section.id}')" class="btn-secondary px-4 py-2 rounded-lg text-white text-sm">
+                            <i class="fas fa-times mr-2"></i>Cancel
+                        </button>
+                    </div>
+                `;
+            } else {
+                return `
+                    <input type="text" value="${section.content}" id="edit-${section.id}" 
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                    <div class="mt-4 flex gap-2">
+                        <button onclick="saveSection('${section.id}')" class="btn-primary px-4 py-2 rounded-lg text-white text-sm">
+                            <i class="fas fa-save mr-2"></i>Save
+                        </button>
+                        <button onclick="cancelEdit('${section.id}')" class="btn-secondary px-4 py-2 rounded-lg text-white text-sm">
+                            <i class="fas fa-times mr-2"></i>Cancel
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        function editSection(sectionId) {
+            // Hide display, show editor
+            document.getElementById(`display-${sectionId}`).style.display = 'none';
+            document.getElementById(`editor-${sectionId}`).style.display = 'block';
+            
+            // Add editing class to section
+            const section = document.getElementById(`display-${sectionId}`).closest('.content-section');
+            section.classList.add('editing');
+        }
+
+        function saveSection(sectionId) {
+            const editor = document.getElementById(`edit-${sectionId}`);
+            const newContent = editor.value || editor.innerHTML;
+            
+            // Update display
+            const display = document.getElementById(`display-${sectionId}`);
+            display.innerHTML = newContent.replace(/\n/g, '<br>');
+            
+            // Hide editor, show display
+            document.getElementById(`editor-${sectionId}`).style.display = 'none';
+            display.style.display = 'block';
+            
+            // Remove editing class
+            const section = display.closest('.content-section');
+            section.classList.remove('editing');
+            
+            // Update content data
+            const sectionData = pageContent[currentPage].sections.find(s => s.id === sectionId);
+            if (sectionData) {
+                sectionData.content = newContent;
+            }
+            
+            showSuccess('Section updated successfully!');
+        }
+
+        function cancelEdit(sectionId) {
+            // Hide editor, show display
+            document.getElementById(`editor-${sectionId}`).style.display = 'none';
+            document.getElementById(`display-${sectionId}`).style.display = 'block';
+            
+            // Remove editing class
+            const section = document.getElementById(`display-${sectionId}`).closest('.content-section');
+            section.classList.remove('editing');
+        }
+
+        function formatText(sectionId, format) {
+            const editor = document.getElementById(`edit-${sectionId}`);
+            document.execCommand(format, false, null);
+            editor.focus();
+        }
+
+        function insertLineBreak(sectionId) {
+            const editor = document.getElementById(`edit-${sectionId}`);
+            document.execCommand('insertHTML', false, '<br>');
+            editor.focus();
+        }
+
+        function saveAllChanges() {
+            // In a real implementation, this would save to a backend
+            localStorage.setItem(`content_${currentPage}`, JSON.stringify(pageContent[currentPage]));
+            showSuccess('All changes saved successfully!');
+        }
+
+        function previewChanges() {
+            // In a real implementation, this would open a preview window
+            alert('Preview feature would show how your changes look on the actual website.');
+        }
+
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            const successText = document.getElementById('successText');
+            successText.textContent = message;
+            successDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                successDiv.style.display = 'none';
+            }, 3000);
+        }
+
+        // Load saved content on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load any previously saved content
+            Object.keys(pageContent).forEach(page => {
+                const saved = localStorage.getItem(`content_${page}`);
+                if (saved) {
+                    pageContent[page] = JSON.parse(saved);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "From Waste to Wealth: The Plastic Recycling Revolution",
+      "content": "Every year, millions of tons of plastic waste end up in landfills and oceans, causing irreversible damage to ecosystems, marine life, and even human health. At Ecocycle Innovations, we believe waste can be transformed into opportunity.",
+      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "date": "2024-01-15",
+      "author": "Ecocycle Team",
+      "tags": ["CircularEconomy", "Sustainability", "3DPrinting", "Innovation"],
+      "category": "Featured",
+      "featured": true
+    },
+    {
+      "id": 2,
+      "title": "From Plastic Bottles to Innovation: The Two Futures",
+      "content": "Every plastic bottle tossed away has two futures — polluting our oceans, or powering innovation through recycling. At Ecocycle Innovations we are choosing the latter.",
+      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      "date": "2024-01-10",
+      "author": "Ecocycle Team",
+      "tags": ["Sustainability", "Innovation", "3DPrinting", "CircularEconomy"],
+      "category": "Sustainability",
+      "featured": false
+    },
+    {
+      "id": 3,
+      "title": "Why 3D Printing Matters in Schools",
+      "content": "At Ecocycle Innovations, we believe the classroom of tomorrow must go beyond books and screens. 3D printing brings hands-on creativity, problem-solving, and sustainability awareness directly into students' learning journeys.",
+      "image": "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      "date": "2024-01-08",
+      "author": "Ecocycle Team",
+      "tags": ["Education", "3DPrinting", "Innovation", "Learning"],
+      "category": "Education",
+      "featured": false
+    },
+    {
+      "id": 4,
+      "title": "Empowering the Next Generation of Innovators",
+      "content": "Our vision is to collaborate with tinkering labs and makerspaces to make 3D printing accessible, sustainable, and impactful for the future of learning.",
+      "image": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      "date": "2024-01-05",
+      "author": "Ecocycle Team",
+      "tags": ["Innovation", "3DPrinting", "Collaboration", "Future"],
+      "category": "Innovation",
+      "featured": false
+    },
+    {
+      "id": 5,
+      "title": "Beyond Textbooks: The Future of Learning",
+      "content": "Education is no longer limited to textbooks and blackboards. With 3D printing, students can see, touch, and interact with concepts that were once abstract.",
+      "image": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      "date": "2024-01-03",
+      "author": "Ecocycle Team",
+      "tags": ["Technology", "Education", "Experiential", "Innovation"],
+      "category": "Technology",
+      "featured": false
+    }
+  ]
+}

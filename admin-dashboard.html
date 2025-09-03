@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Admin Dashboard - Ecocycle Innovations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #10b981;
+            --accent: #f59e0b;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #064e3b 0%, #065f46 25%, #047857 50%, #059669 75%, #10b981 100%);
+        }
+        
+        .section-title {
+            background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .admin-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            transition: all 0.3s ease;
+        }
+        
+        .admin-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(15, 118, 110, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+        }
+        
+        .stats-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .quick-action {
+            transition: all 0.3s ease;
+        }
+        
+        .quick-action:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="font-['Outfit'] bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-xl font-bold text-gray-900 font-['Outfit']">
+                        Ecocycle <span class="text-primary">Innovations</span>
+                    </a>
+                    <span class="ml-4 px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">Admin Dashboard</span>
+                    <span id="userInfo" class="ml-2 px-3 py-1 bg-blue-100 text-blue-700 text-sm rounded-full"></span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="text-gray-600 hover:text-primary transition-colors">
+                        <i class="fas fa-eye mr-2"></i>View Website
+                    </a>
+                    <a href="admin.html" class="text-gray-600 hover:text-primary transition-colors">
+                        <i class="fas fa-blog mr-2"></i>Blog Admin
+                    </a>
+                    <button onclick="logout()" class="text-red-600 hover:text-red-700 transition-colors">
+                        <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient py-12 relative overflow-hidden">
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                Website Management Dashboard
+            </h1>
+            <p class="text-lg text-gray-200">
+                Manage your entire website content without coding knowledge
+            </p>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-8 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="stats-card p-6 rounded-lg">
+                    <div class="flex items-center">
+                        <div class="p-3 bg-primary/10 rounded-lg">
+                            <i class="fas fa-file-alt text-primary text-xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Total Pages</p>
+                            <p class="text-2xl font-bold text-gray-900">6</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats-card p-6 rounded-lg">
+                    <div class="flex items-center">
+                        <div class="p-3 bg-blue-100 rounded-lg">
+                            <i class="fas fa-blog text-blue-600 text-xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Blog Posts</p>
+                            <p class="text-2xl font-bold text-gray-900" id="blogCount">5</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats-card p-6 rounded-lg">
+                    <div class="flex items-center">
+                        <div class="p-3 bg-green-100 rounded-lg">
+                            <i class="fas fa-users text-green-600 text-xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Team Members</p>
+                            <p class="text-2xl font-bold text-gray-900">3</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats-card p-6 rounded-lg">
+                    <div class="flex items-center">
+                        <div class="p-3 bg-purple-100 rounded-lg">
+                            <i class="fas fa-images text-purple-600 text-xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Images</p>
+                            <p class="text-2xl font-bold text-gray-900">12</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Management Section -->
+    <section class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold section-title mb-4">Website Management</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    Choose what you want to manage on your website
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Blog Management -->
+                <div class="admin-card p-8 text-center">
+                    <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-blog text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Blog Management</h3>
+                    <p class="text-gray-600 mb-6">
+                        Add, edit, and delete blog posts. Manage your content easily.
+                    </p>
+                    <div class="space-y-3">
+                        <a href="admin.html" class="btn-primary w-full px-6 py-3 rounded-lg font-semibold text-white block">
+                            <i class="fas fa-plus mr-2"></i>Manage Blog Posts
+                        </a>
+                        <a href="blog.html" class="btn-secondary w-full px-6 py-3 rounded-lg font-semibold text-white block">
+                            <i class="fas fa-eye mr-2"></i>View Blog
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Content Management -->
+                <div class="admin-card p-8 text-center">
+                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-edit text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Content Editor</h3>
+                    <p class="text-gray-600 mb-6">
+                        Edit text content on all pages without touching code.
+                    </p>
+                    <div class="space-y-3">
+                        <button onclick="openContentEditor()" class="btn-primary w-full px-6 py-3 rounded-lg font-semibold text-white">
+                            <i class="fas fa-edit mr-2"></i>Edit Page Content
+                        </button>
+                        <button onclick="openTextEditor()" class="btn-secondary w-full px-6 py-3 rounded-lg font-semibold text-white">
+                            <i class="fas fa-font mr-2"></i>Text Editor
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Team Management -->
+                <div class="admin-card p-8 text-center">
+                    <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-users text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Team Management</h3>
+                    <p class="text-gray-600 mb-6">
+                        Update team member information, photos, and details.
+                    </p>
+                    <div class="space-y-3">
+                        <button onclick="openTeamEditor()" class="btn-primary w-full px-6 py-3 rounded-lg font-semibold text-white">
+                            <i class="fas fa-user-edit mr-2"></i>Edit Team Members
+                        </button>
+                        <a href="team-contact.html" class="btn-secondary w-full px-6 py-3 rounded-lg font-semibold text-white block">
+                            <i class="fas fa-eye mr-2"></i>View Team Page
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Image Management -->
+                <div class="admin-card p-8 text-center">
+                    <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-images text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Image Gallery</h3>
+                    <p class="text-gray-600 mb-6">
+                        Manage all images used across your website.
+                    </p>
+                    <div class="space-y-3">
+                        <button onclick="openImageManager()" class="btn-primary w-full px-6 py-3 rounded-lg font-semibold text-white">
+                            <i class="fas fa-images mr-2"></i>Manage Images
+                        </button>
+                        <button onclick="openImageUploader()" class="btn-secondary w-full px-6 py-3 rounded-lg font-semibold text-white">
+                            <i class="fas fa-upload mr-2"></i>Upload Images
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Management -->
+                <div class="admin-card p-8 text-center">
+                    <div class="w-16 h-16 bg-yellow-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-box text-yellow-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Product Management</h3>
+                    <p class="text-gray-600 mb-6">
+                        Update product information, descriptions, and images.
+                    </p>
+                    <div class="space-y-3">
+                        <button onclick="openProductEditor()" class="btn-primary w-full px-6 py-3 rounded-lg font-semibold text-white">
+                            <i class="fas fa-edit mr-2"></i>Edit Products
+                        </button>
+                        <a href="products.html" class="btn-secondary w-full px-6 py-3 rounded-lg font-semibold text-white block">
+                            <i class="fas fa-eye mr-2"></i>View Products
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Website Settings -->
+                <div class="admin-card p-8 text-center">
+                    <div class="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-cog text-red-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Website Settings</h3>
+                    <p class="text-gray-600 mb-6">
+                        Manage website settings, contact info, and preferences.
+                    </p>
+                    <div class="space-y-3">
+                        <button onclick="openSettings()" class="btn-primary w-full px-6 py-3 rounded-lg font-semibold text-white">
+                            <i class="fas fa-cog mr-2"></i>Website Settings
+                        </button>
+                        <button onclick="openBackup()" class="btn-secondary w-full px-6 py-3 rounded-lg font-semibold text-white">
+                            <i class="fas fa-download mr-2"></i>Backup Website
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Actions Section -->
+    <section class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold section-title mb-4">Quick Actions</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    Common tasks you might need to do frequently
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <button onclick="addNewBlogPost()" class="quick-action admin-card p-6 text-center">
+                    <i class="fas fa-plus-circle text-primary text-3xl mb-4"></i>
+                    <h4 class="font-semibold text-gray-900 mb-2">Add Blog Post</h4>
+                    <p class="text-sm text-gray-600">Create a new blog post</p>
+                </button>
+                
+                <button onclick="updateContactInfo()" class="quick-action admin-card p-6 text-center">
+                    <i class="fas fa-phone text-blue-600 text-3xl mb-4"></i>
+                    <h4 class="font-semibold text-gray-900 mb-2">Update Contact</h4>
+                    <p class="text-sm text-gray-600">Change contact information</p>
+                </button>
+                
+                <button onclick="changeHeroImage()" class="quick-action admin-card p-6 text-center">
+                    <i class="fas fa-image text-green-600 text-3xl mb-4"></i>
+                    <h4 class="font-semibold text-gray-900 mb-2">Change Hero Image</h4>
+                    <p class="text-sm text-gray-600">Update homepage image</p>
+                </button>
+                
+                <button onclick="viewAnalytics()" class="quick-action admin-card p-6 text-center">
+                    <i class="fas fa-chart-bar text-purple-600 text-3xl mb-4"></i>
+                    <h4 class="font-semibold text-gray-900 mb-2">View Analytics</h4>
+                    <p class="text-sm text-gray-600">Check website stats</p>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-400">© 2024 Ecocycle Innovations. Website Management Dashboard.</p>
+            <p class="text-sm text-gray-500 mt-2">Need help? Contact your web developer or check the admin instructions.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Check authentication
+        document.addEventListener('DOMContentLoaded', function() {
+            const isAuthenticated = sessionStorage.getItem('adminAuthenticated');
+            const loginTime = sessionStorage.getItem('adminLoginTime');
+            const sessionId = sessionStorage.getItem('adminSessionId');
+            const username = sessionStorage.getItem('adminUsername');
+            const role = sessionStorage.getItem('adminRole');
+            
+            // Check if login is still valid (24 hours)
+            if (!isAuthenticated || !loginTime || !sessionId) {
+                // Not authenticated, redirect to login
+                window.location.href = 'admin-login.html';
+                return;
+            }
+            
+            const timeDiff = Date.now() - parseInt(loginTime);
+            const hoursDiff = timeDiff / (1000 * 60 * 60);
+            
+            if (hoursDiff >= 24) {
+                // Session expired, clear storage and redirect
+                clearSession();
+                window.location.href = 'admin-login.html';
+                return;
+            }
+            
+            // Display user information
+            if (username && role) {
+                document.getElementById('userInfo').textContent = `${username} (${role})`;
+            }
+            
+            // Load dashboard content
+            loadBlogCount();
+        });
+        
+        // Clear session data
+        function clearSession() {
+            sessionStorage.removeItem('adminAuthenticated');
+            sessionStorage.removeItem('adminLoginTime');
+            sessionStorage.removeItem('adminUsername');
+            sessionStorage.removeItem('adminRole');
+            sessionStorage.removeItem('adminSessionId');
+        }
+        
+        // Logout function
+        function logout() {
+            clearSession();
+            window.location.href = 'admin-login.html';
+        }
+        
+        // Load blog count
+        async function loadBlogCount() {
+            try {
+                const response = await fetch('blog-posts.json');
+                const data = await response.json();
+                document.getElementById('blogCount').textContent = data.posts.length;
+            } catch (error) {
+                console.error('Error loading blog count:', error);
+            }
+        }
+
+        // Quick action functions
+        function addNewBlogPost() {
+            window.location.href = 'admin.html';
+        }
+
+        function openContentEditor() {
+            window.location.href = 'content-editor.html';
+        }
+
+        function openTextEditor() {
+            alert('Text Editor will open. This allows you to edit text content without coding knowledge.');
+            // In a real implementation, this would open a rich text editor
+        }
+
+        function openTeamEditor() {
+            alert('Team Editor will open. You can update team member information, photos, and details.');
+            // In a real implementation, this would open a team management interface
+        }
+
+        function openImageManager() {
+            alert('Image Manager will open. You can view, organize, and manage all website images.');
+            // In a real implementation, this would open an image gallery manager
+        }
+
+        function openImageUploader() {
+            alert('Image Uploader will open. You can upload new images for your website.');
+            // In a real implementation, this would open an image upload interface
+        }
+
+        function openProductEditor() {
+            alert('Product Editor will open. You can update product information and descriptions.');
+            // In a real implementation, this would open a product management interface
+        }
+
+        function openSettings() {
+            alert('Website Settings will open. You can manage contact info, preferences, and other settings.');
+            // In a real implementation, this would open a settings panel
+        }
+
+        function openBackup() {
+            alert('Backup feature will create a downloadable backup of your website content.');
+            // In a real implementation, this would generate and download a backup file
+        }
+
+        function updateContactInfo() {
+            alert('Contact Info Editor will open. You can update phone numbers, emails, and addresses.');
+            // In a real implementation, this would open a contact information editor
+        }
+
+        function changeHeroImage() {
+            alert('Hero Image Editor will open. You can change the main image on your homepage.');
+            // In a real implementation, this would open an image selector for the hero section
+        }
+
+        function viewAnalytics() {
+            alert('Analytics Dashboard will open. You can view website visitor statistics and performance.');
+            // In a real implementation, this would open an analytics dashboard
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            loadBlogCount();
+        });
+    </script>
+</body>
+</html>

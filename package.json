@@ -1,0 +1,13 @@
+{
+  "name": "ecocycle-website",
+  "version": "1.0.0",
+  "description": "Ecocycle Innovations Website with Secure Admin Panel",
+  "scripts": {
+    "build": "node build-secure.js",
+    "build:dev": "ADMIN_PASSWORD=dev123 npm run build",
+    "build:prod": "ADMIN_PASSWORD=YourSecurePassword123! npm run build"
+  },
+  "keywords": ["website", "admin", "secure"],
+  "author": "Ecocycle Innovations",
+  "license": "MIT"
+}

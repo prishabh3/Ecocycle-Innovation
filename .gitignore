@@ -1,0 +1,45 @@
+# Configuration files with sensitive data
+config.js
+.env
+.env.local
+.env.production
+
+# Admin credentials
+admin-credentials.js
+secrets.js
+
+# Build files with sensitive data
+admin-login.html
+company-info-secure.html
+
+# Source files with placeholders (keep these private)
+admin-login-secure.html
+
+# Logs
+*.log
+login-attempts.json
+
+# Temporary files
+temp/
+tmp/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node modules (if you add any)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

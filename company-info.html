@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Information - Ecocycle Innovations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10B981',
+                        secondary: '#059669'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" id="companyLogo" class="text-xl font-bold text-gray-900 font-['Outfit'] cursor-pointer hover:text-primary transition-colors">
+                        Ecocycle <span class="text-primary">Innovations</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-600 hover:text-primary transition-colors">Home</a>
+                    <a href="about.html" class="text-gray-600 hover:text-primary transition-colors">About</a>
+                    <a href="products.html" class="text-gray-600 hover:text-primary transition-colors">Products</a>
+                    <a href="technology.html" class="text-gray-600 hover:text-primary transition-colors">Technology</a>
+                    <a href="blog.html" class="text-gray-600 hover:text-primary transition-colors">Blog</a>
+                    <a href="team-contact.html" class="text-gray-600 hover:text-primary transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="bg-white rounded-2xl shadow-lg p-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-6">Company Information</h1>
+            
+            <!-- Prominent Logo for Triple Click -->
+            <div class="text-center mb-8 p-6 bg-gray-50 rounded-lg">
+                <a href="#" id="prominentLogo" class="inline-block text-2xl font-bold text-gray-900 font-['Outfit'] cursor-pointer hover:text-primary transition-colors border-2 border-dashed border-gray-300 rounded-lg px-6 py-3 hover:border-primary">
+                    Ecocycle <span class="text-primary">Innovations</span>
+                </a>
+            </div>
+            
+            <div class="prose max-w-none">
+                <p class="text-gray-600 mb-6">
+                    Welcome to Ecocycle Innovations. This page contains general company information and resources.
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Company Overview</h3>
+                        <p class="text-gray-600 mb-4">
+                            Ecocycle Innovations is a pioneering company dedicated to creating sustainable solutions for environmental challenges through innovative recycling technologies.
+                        </p>
+                        <ul class="text-gray-600 space-y-2">
+                            <li>• Founded with a vision for environmental sustainability</li>
+                            <li>• Specialized in innovative recycling solutions and waste management</li>
+                            <li>• Committed to reducing environmental impact through technology</li>
+                            <li>• Located at Rakesh Kapoor Innovation Centre, Pilani</li>
+                        </ul>
+                    </div>
+                    
+                                    <div class="bg-gray-50 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Contact Information</h3>
+                    <div class="space-y-3 text-gray-600">
+                        <p><i class="fas fa-envelope mr-2 text-primary"></i>ecocycleinnovations1@gmail.com</p>
+                        <p><i class="fas fa-globe mr-2 text-primary"></i>ecocycleinnovations.in</p>
+                        <p><i class="fas fa-map-marker-alt mr-2 text-primary"></i>Rakesh Kapoor Innovation Centre</p>
+                        <p><i class="fas fa-map-marker-alt mr-2 text-primary"></i>Pilani, Rajasthan - 333031</p>
+                    </div>
+
+                </div>
+                </div>
+                
+                <!-- Hidden Admin Access Area -->
+                <div id="adminAccess" class="mt-8 p-6 bg-blue-50 rounded-lg border border-blue-200" style="display: none;">
+                    <h3 class="text-lg font-semibold text-blue-900 mb-4">
+                        <i class="fas fa-cog mr-2"></i>Administrative Access
+                    </h3>
+                    <p class="text-blue-700 mb-4">Authorized personnel can access the admin panel here.</p>
+                    <a href="ecocycle-admin.html" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        <i class="fas fa-shield-alt mr-2"></i>
+                        Access Admin Panel
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-gray-400">© 2024 Ecocycle Innovations. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Hidden admin access - only shows if user knows the secret
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check for admin access trigger
+            const urlParams = new URLSearchParams(window.location.search);
+            const adminKey = urlParams.get('key');
+            
+            // Secret key to reveal admin access
+            if (adminKey === 'ecocycle2024') {
+                document.getElementById('adminAccess').style.display = 'block';
+            }
+            
+            // Alternative: Triple-click on company logo to reveal
+            let clickCount = 0;
+            let clickTimer = null;
+            
+            // Function to handle triple click
+            function handleTripleClick(e) {
+                e.preventDefault();
+                clickCount++;
+                console.log('Click count:', clickCount); // Debug log
+                
+                // Clear existing timer
+                if (clickTimer) {
+                    clearTimeout(clickTimer);
+                }
+                
+                if (clickCount >= 3) {
+                    document.getElementById('adminAccess').style.display = 'block';
+                    console.log('Admin access revealed!'); // Debug log
+                    clickCount = 0;
+                    return;
+                }
+                
+                // Reset counter after 1 second
+                clickTimer = setTimeout(() => {
+                    clickCount = 0;
+                    console.log('Click count reset'); // Debug log
+                }, 1000);
+            }
+            
+            // Add event listeners to both logos
+            const navLogo = document.getElementById('companyLogo');
+            const prominentLogo = document.getElementById('prominentLogo');
+            
+            if (navLogo) {
+                navLogo.addEventListener('click', handleTripleClick);
+            }
+            
+            if (prominentLogo) {
+                prominentLogo.addEventListener('click', handleTripleClick);
+            }
+        });
+    </script>
+</body>
+</html>
