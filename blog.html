@@ -406,6 +406,7 @@
                         // Sort by date (newest first)
                         blogPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
                         console.log('Loaded', blogPosts.length, 'posts from Firebase');
+                        console.log('Posts:', blogPosts);
                         
                         displayFeaturedPost();
                         displayBlogPosts();
@@ -458,7 +459,7 @@
                             </p>
                             
                             <div class="flex flex-wrap gap-2 mb-6">
-                                ${featuredPost.tags.map(tag => `<span class="tag bg-blue-100 text-blue-700">#${tag}</span>`).join('')}
+                                ${(featuredPost.tags || []).map(tag => `<span class="tag bg-blue-100 text-blue-700">#${tag}</span>`).join('')}
                             </div>
                             
                             <div class="flex items-center justify-between text-sm text-gray-500">
@@ -493,7 +494,7 @@
                         </p>
                         
                         <div class="flex flex-wrap gap-2 mb-4">
-                            ${post.tags.slice(0, 4).map(tag => `<span class="tag bg-blue-100 text-blue-700">#${tag}</span>`).join('')}
+                            ${(post.tags || []).slice(0, 4).map(tag => `<span class="tag bg-blue-100 text-blue-700">#${tag}</span>`).join('')}
                         </div>
                         
                         <div class="flex items-center justify-between text-xs text-gray-500">
