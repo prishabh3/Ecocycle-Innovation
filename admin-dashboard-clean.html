@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Ecocycle Innovations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #10b981;
+            --accent: #f59e0b;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #064e3b 0%, #065f46 25%, #047857 50%, #059669 75%, #10b981 100%);
+        }
+        
+        .section-title {
+            background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .admin-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            transition: all 0.3s ease;
+        }
+        
+        .admin-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(15, 118, 110, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-br from-teal-600 to-emerald-600 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-recycle text-white text-lg"></i>
+                        </div>
+                        <span class="text-xl font-bold text-gray-900">Ecocycle Innovations</span>
+                    </a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <span id="userInfo" class="text-sm text-gray-600"></span>
+                    <button onclick="logout()" class="text-gray-600 hover:text-red-600 transition-colors">
+                        <i class="fas fa-sign-out-alt mr-1"></i>Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient py-16 text-white relative overflow-hidden">
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                Admin <span class="text-yellow-300">Dashboard</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-green-100 max-w-3xl mx-auto">
+                Manage your website content and customer orders
+            </p>
+        </div>
+    </section>
+
+    <!-- Management Cards Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold section-title mb-4">Management Options</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    Choose what you want to manage on your website
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Blog Management -->
+                <div class="admin-card p-8 text-center">
+                    <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-blog text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Blog Management</h3>
+                    <p class="text-gray-600 mb-6">
+                        Add, edit, and delete blog posts. Manage your content easily.
+                    </p>
+                    <div class="space-y-3">
+                        <a href="admin.html" class="btn-primary w-full px-6 py-3 rounded-lg font-semibold text-white block">
+                            <i class="fas fa-plus mr-2"></i>Manage Blog Posts
+                        </a>
+                        <a href="blog.html" class="btn-secondary w-full px-6 py-3 rounded-lg font-semibold text-white block">
+                            <i class="fas fa-eye mr-2"></i>View Blog
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Order Management -->
+                <div class="admin-card p-8 text-center">
+                    <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-shopping-cart text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Order Management</h3>
+                    <p class="text-gray-600 mb-6">
+                        View and manage customer orders. Track order status and customer details.
+                    </p>
+                    <div class="space-y-3">
+                        <a href="admin.html" class="btn-primary w-full px-6 py-3 rounded-lg font-semibold text-white block">
+                            <i class="fas fa-list mr-2"></i>View Orders
+                        </a>
+                        <a href="order.html" class="btn-secondary w-full px-6 py-3 rounded-lg font-semibold text-white block">
+                            <i class="fas fa-eye mr-2"></i>View Order Form
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-400">© 2024 Ecocycle Innovations. Admin Dashboard.</p>
+            <p class="text-sm text-gray-500 mt-2">Need help? Contact your web developer.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Check authentication
+        document.addEventListener('DOMContentLoaded', function() {
+            const isAuthenticated = sessionStorage.getItem('adminAuthenticated');
+            const loginTime = sessionStorage.getItem('adminLoginTime');
+            const sessionId = sessionStorage.getItem('adminSessionId');
+            const username = sessionStorage.getItem('adminUsername');
+            const role = sessionStorage.getItem('adminRole');
+            
+            // Check if login is still valid (24 hours)
+            if (!isAuthenticated || !loginTime || !sessionId) {
+                // Not authenticated, redirect to login
+                window.location.href = 'admin-login.html';
+                return;
+            }
+            
+            const timeDiff = Date.now() - parseInt(loginTime);
+            const hoursDiff = timeDiff / (1000 * 60 * 60);
+            
+            if (hoursDiff >= 24) {
+                // Session expired, clear storage and redirect
+                clearSession();
+                window.location.href = 'admin-login.html';
+                return;
+            }
+            
+            // Display user information
+            if (username && role) {
+                document.getElementById('userInfo').textContent = `${username} (${role})`;
+            }
+        });
+        
+        // Clear session data
+        function clearSession() {
+            sessionStorage.removeItem('adminAuthenticated');
+            sessionStorage.removeItem('adminLoginTime');
+            sessionStorage.removeItem('adminUsername');
+            sessionStorage.removeItem('adminRole');
+            sessionStorage.removeItem('adminSessionId');
+        }
+        
+        // Logout function
+        function logout() {
+            clearSession();
+            window.location.href = 'admin-login.html';
+        }
+    </script>
+</body>
+</html>
