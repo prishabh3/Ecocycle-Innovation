@@ -249,7 +249,7 @@
     </section>
 
     <!-- Blog Management Tab -->
-    <div id="blogContent" class="tab-content">
+    <div id="blogContent" class="tab-content active">
         <!-- Blog Post Form -->
         <section class="py-12 bg-gray-50">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -447,6 +447,7 @@
             }
             
             // Initialize with blog tab active
+            console.log('Initializing admin panel...');
             switchTab('blog');
             
             const timeDiff = Date.now() - parseInt(loginTime);
@@ -1013,9 +1014,12 @@
 
         // Tab switching functionality
         function switchTab(tabName) {
+            console.log('Switching to tab:', tabName);
+            
             // Hide all tab contents
             document.querySelectorAll('.tab-content').forEach(content => {
                 content.classList.remove('active');
+                console.log('Removed active from:', content.id);
             });
             
             // Remove active class from all tabs
@@ -1025,12 +1029,26 @@
             
             // Show selected tab content
             if (tabName === 'blog') {
-                document.getElementById('blogContent').classList.add('active');
-                document.getElementById('blogTab').classList.add('active');
+                const blogContent = document.getElementById('blogContent');
+                const blogTab = document.getElementById('blogTab');
+                if (blogContent && blogTab) {
+                    blogContent.classList.add('active');
+                    blogTab.classList.add('active');
+                    console.log('Blog tab activated');
+                } else {
+                    console.error('Blog tab elements not found');
+                }
             } else if (tabName === 'orders') {
-                document.getElementById('orderContent').classList.add('active');
-                document.getElementById('orderTab').classList.add('active');
-                loadOrders(); // Load orders when switching to orders tab
+                const orderContent = document.getElementById('orderContent');
+                const orderTab = document.getElementById('orderTab');
+                if (orderContent && orderTab) {
+                    orderContent.classList.add('active');
+                    orderTab.classList.add('active');
+                    loadOrders(); // Load orders when switching to orders tab
+                    console.log('Orders tab activated');
+                } else {
+                    console.error('Orders tab elements not found');
+                }
             }
         }
 
