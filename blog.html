@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    
     <style>
         :root {
             --primary: #10b981;
@@ -385,39 +390,44 @@
         async function loadBlogPosts() {
             try {
                 console.log('Loading blog posts...');
+                
+                // Try to load from Firebase first
+                const db = initializeFirebase();
+                
+                if (db) {
+                    console.log('Loading from Firebase...');
+                    const postsRef = firebase.database().ref('blogPosts');
+                    const snapshot = await postsRef.once('value');
+                    const firebasePosts = snapshot.val();
+                    
+                    if (firebasePosts) {
+                        // Convert Firebase object to array
+                        blogPosts = Object.values(firebasePosts);
+                        // Sort by date (newest first)
+                        blogPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+                        console.log('Loaded', blogPosts.length, 'posts from Firebase');
+                        
+                        displayFeaturedPost();
+                        displayBlogPosts();
+                        return;
+                    }
+                }
+            } catch (firebaseError) {
+                console.log('Firebase not available, using fallback:', firebaseError);
+            }
+            
+            // Fallback to JSON file if Firebase isn't configured
+            try {
                 const response = await fetch('blog-posts.json');
                 const data = await response.json();
-                blogPosts = data.posts;
-                console.log('Loaded', blogPosts.length, 'posts from JSON');
-                
-                // Check for new posts from localStorage (from admin panel)
-                const newPost = localStorage.getItem('newBlogPost');
-                if (newPost) {
-                    console.log('Found new post in localStorage:', newPost);
-                    const parsedPost = JSON.parse(newPost);
-                    blogPosts.unshift(parsedPost);
-                    localStorage.removeItem('newBlogPost');
-                    console.log('Added new post, total posts:', blogPosts.length);
-                } else {
-                    console.log('No new posts in localStorage');
-                }
-                
-                // Check for deleted posts from localStorage
-                const deletedPost = localStorage.getItem('deletedPost');
-                if (deletedPost) {
-                    console.log('Found deleted post in localStorage:', deletedPost);
-                    const deletedData = JSON.parse(deletedPost);
-                    blogPosts = blogPosts.filter(post => post.id !== deletedData.id);
-                    localStorage.removeItem('deletedPost');
-                    console.log('Removed deleted post, total posts:', blogPosts.length);
-                }
+                blogPosts = data.posts || [];
+                console.log('Loaded', blogPosts.length, 'posts from JSON file');
                 
                 displayFeaturedPost();
                 displayBlogPosts();
-                console.log('Blog posts display updated');
             } catch (error) {
                 console.error('Error loading blog posts:', error);
-                // Fallback to static content if JSON fails to load
+                // Fallback to static content if everything fails
                 displayFallbackContent();
             }
         }
