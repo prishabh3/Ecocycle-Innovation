@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    
     <style>
         :root {
             --primary: #10b981;
@@ -397,12 +402,62 @@
         // Load existing blog posts
         async function loadBlogPosts() {
             try {
-                const response = await fetch('blog-posts.json');
-                const data = await response.json();
-                blogPosts = data.posts;
+                // Try to load from Firebase first
+                const db = initializeFirebase();
+                
+                if (db) {
+                    const postsRef = firebase.database().ref('blogPosts');
+                    const snapshot = await postsRef.once('value');
+                    const firebasePosts = snapshot.val();
+                    
+                    if (firebasePosts) {
+                        // Convert Firebase object to array
+                        blogPosts = Object.values(firebasePosts);
+                        // Sort by date (newest first)
+                        blogPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+                        console.log('Loaded', blogPosts.length, 'posts from Firebase');
+                        displayRecentPosts();
+                        return;
+                    }
+                }
+            } catch (firebaseError) {
+                console.log('Firebase not available, using fallback:', firebaseError);
+            }
+            
+            // Fallback to localStorage and JSON
+            try {
+                // Load from localStorage
+                const storedPosts = localStorage.getItem('blogPosts');
+                let localPosts = [];
+                
+                if (storedPosts) {
+                    localPosts = JSON.parse(storedPosts);
+                }
+                
+                // Load from JSON file
+                let jsonPosts = [];
+                try {
+                    const response = await fetch('blog-posts.json');
+                    const data = await response.json();
+                    jsonPosts = data.posts || [];
+                } catch (jsonError) {
+                    console.log('JSON file not loaded');
+                }
+                
+                // Merge and remove duplicates
+                const allPosts = [...localPosts, ...jsonPosts];
+                const uniquePosts = allPosts.filter((post, index, self) =>
+                    index === self.findIndex((p) => p.id === post.id)
+                );
+                
+                blogPosts = uniquePosts;
+                console.log('Total posts from fallback:', blogPosts.length);
+                
                 displayRecentPosts();
             } catch (error) {
                 console.error('Error loading blog posts:', error);
+                blogPosts = [];
+                displayRecentPosts();
             }
         }
 
@@ -582,11 +637,8 @@
             // Add to blog posts
             blogPosts.unshift(newPost); // Add to beginning
             
-            // Save to JSON (in a real application, this would be sent to a server)
+            // Save to Firebase (this will show the success message)
             saveBlogPost(newPost);
-            
-            // Show success message
-            showSuccess(`✅ Blog post "${newPost.title}" has been added successfully!`);
             
             // Reset form
             document.getElementById('blogForm').reset();
@@ -598,15 +650,115 @@
             // Update recent posts display
             displayRecentPosts();
         }
+        
+        // Generate JSON code for the new blog post
+        function generateJSONCode(newPost) {
+            const jsonCode = JSON.stringify(newPost, null, 2);
+            
+            // Create or update the code display section
+            let codeSection = document.getElementById('jsonCodeSection');
+            if (!codeSection) {
+                codeSection = document.createElement('div');
+                codeSection.id = 'jsonCodeSection';
+                codeSection.className = 'mt-8 p-6 bg-gray-900 rounded-lg';
+                document.querySelector('.form-card').appendChild(codeSection);
+            }
+            
+            codeSection.innerHTML = `
+                <div class="mb-4">
+                    <h3 class="text-lg font-bold text-white mb-2">
+                        <i class="fas fa-code mr-2"></i>Step 2: Copy and Add to blog-posts.json
+                    </h3>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Copy the code below and add it to the "posts" array in <code class="bg-gray-800 px-2 py-1 rounded">blog-posts.json</code> file. 
+                        Add it after the opening bracket <code class="bg-gray-800 px-2 py-1 rounded">"posts": [</code>
+                    </p>
+                </div>
+                
+                <div class="relative">
+                    <pre class="bg-gray-800 p-4 rounded-lg overflow-x-auto text-sm text-green-400 border border-gray-700"><code>${jsonCode},</code></pre>
+                    <button onclick="copyJSONCode()" class="absolute top-2 right-2 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md text-sm font-semibold transition-all">
+                        <i class="fas fa-copy mr-1"></i>Copy Code
+                    </button>
+                </div>
+                
+                <div class="mt-4 p-4 bg-blue-900/30 border border-blue-500/30 rounded-lg">
+                    <p class="text-blue-200 text-sm">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        <strong>Instructions:</strong>
+                    </p>
+                    <ol class="text-blue-200 text-sm mt-2 ml-4 space-y-1">
+                        <li>1. Click "Copy Code" button above</li>
+                        <li>2. Open <code class="bg-gray-800 px-1 rounded">blog-posts.json</code> file in your code editor</li>
+                        <li>3. Find the line <code class="bg-gray-800 px-1 rounded">"posts": [</code></li>
+                        <li>4. Paste the copied code right after it (before any existing posts)</li>
+                        <li>5. Save the file</li>
+                        <li>6. Commit and push to GitHub</li>
+                        <li>7. Everyone will see your new blog post!</li>
+                    </ol>
+                </div>
+            `;
+        }
+        
+        // Copy JSON code to clipboard
+        window.copyJSONCode = function() {
+            const codeElement = document.querySelector('#jsonCodeSection pre code');
+            const code = codeElement.textContent;
+            
+            navigator.clipboard.writeText(code).then(() => {
+                // Show copied confirmation
+                const btn = document.querySelector('#jsonCodeSection button');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check mr-1"></i>Copied!';
+                btn.classList.add('bg-green-600');
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.classList.remove('bg-green-600');
+                }, 2000);
+            }).catch(err => {
+                alert('Failed to copy. Please select and copy manually.');
+            });
+        };
 
-        // Save blog post (simulate saving)
-        function saveBlogPost(post) {
-            // In a real application, you would send this to a server
-            // For now, we'll just update the local array
+        // Save blog post to Firebase
+        async function saveBlogPost(post) {
             console.log('Saving blog post:', post);
             
-            // You could also use localStorage as a temporary solution:
-            localStorage.setItem('newBlogPost', JSON.stringify(post));
+            try {
+                // Initialize Firebase if not already done
+                const db = initializeFirebase();
+                
+                if (db) {
+                    // Save to Firebase Realtime Database
+                    const postsRef = firebase.database().ref('blogPosts/' + post.id);
+                    await postsRef.set(post);
+                    console.log('Blog post saved to Firebase successfully!');
+                    
+                    showSuccess(`✅ Blog post "${post.title}" is now LIVE! Everyone can see it immediately!`);
+                } else {
+                    throw new Error('Firebase not initialized');
+                }
+            } catch (error) {
+                console.error('Error saving to Firebase:', error);
+                
+                // Fallback to localStorage as backup
+                console.log('Falling back to localStorage...');
+                let existingPosts = [];
+                try {
+                    const stored = localStorage.getItem('blogPosts');
+                    if (stored) {
+                        existingPosts = JSON.parse(stored);
+                    }
+                } catch (err) {
+                    console.error('Error reading existing posts:', err);
+                }
+                
+                existingPosts.unshift(post);
+                localStorage.setItem('blogPosts', JSON.stringify(existingPosts));
+                
+                showError('Firebase not configured yet. Please follow setup instructions below.');
+            }
         }
 
         // Show success message (global function)
@@ -666,7 +818,7 @@
         }
 
         // Delete post function
-        function deletePost(postId) {
+        async function deletePost(postId) {
             const post = blogPosts.find(p => p.id === postId);
             if (!post) return;
 
@@ -674,11 +826,25 @@
             const confirmed = confirm(`Are you sure you want to delete the post "${post.title}"?\n\nThis action cannot be undone.`);
             
             if (confirmed) {
-                // Remove post from array
+                try {
+                    // Try to delete from Firebase
+                    const db = initializeFirebase();
+                    if (db) {
+                        const postRef = firebase.database().ref('blogPosts/' + postId);
+                        await postRef.remove();
+                        console.log('Post deleted from Firebase');
+                    }
+                } catch (error) {
+                    console.error('Error deleting from Firebase:', error);
+                    // Continue with local deletion even if Firebase fails
+                }
+                
+                // Remove post from local array
                 blogPosts = blogPosts.filter(p => p.id !== postId);
                 
-                // Update localStorage to reflect the change
-                localStorage.setItem('deletedPost', JSON.stringify({id: postId, action: 'delete'}));
+                // Update localStorage
+                const storedPosts = blogPosts.filter(p => !p.fromJSON); // Only keep user-added posts
+                localStorage.setItem('blogPosts', JSON.stringify(storedPosts));
                 
                 // Refresh the display
                 displayRecentPosts();
