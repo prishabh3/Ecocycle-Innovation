@@ -87,24 +87,43 @@
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100">
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
-                    <a href="index.html" class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-gradient-to-br from-teal-600 to-emerald-600 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-recycle text-white text-lg"></i>
-                        </div>
-                        <span class="text-xl font-bold text-gray-900">Ecocycle Innovations</span>
+                    <a href="index.html" class="text-xl font-bold text-gray-900 font-['Outfit']">
+                        Ecocycle <span class="text-primary">Innovations</span>
                     </a>
                 </div>
                 
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="index.html" class="text-gray-600 hover:text-teal-600 transition-colors">Home</a>
-                    <a href="about.html" class="text-gray-600 hover:text-teal-600 transition-colors">About</a>
-                    <a href="products.html" class="text-gray-600 hover:text-teal-600 transition-colors">Products</a>
-                    <a href="blog.html" class="text-gray-600 hover:text-teal-600 transition-colors">Blog</a>
-                    <a href="team-contact.html" class="text-gray-600 hover:text-teal-600 transition-colors">Contact</a>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="index.html" class="text-gray-600 hover:text-primary transition-colors">Home</a>
+                        <a href="about.html" class="text-gray-600 hover:text-primary transition-colors">About</a>
+                        <a href="products.html" class="text-gray-600 hover:text-primary transition-colors">Products</a>
+                        <a href="technology.html" class="text-gray-600 hover:text-primary transition-colors">Technology</a>
+                        <a href="blog.html" class="text-gray-600 hover:text-primary transition-colors">Blog</a>
+                        <a href="team-contact.html" class="text-primary font-semibold">Team & Contact</a>
+                    </div>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-600 hover:text-primary transition-colors p-2">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="index.html" class="block px-3 py-2 text-gray-600 hover:text-primary transition-colors">Home</a>
+                    <a href="about.html" class="block px-3 py-2 text-gray-600 hover:text-primary transition-colors">About</a>
+                    <a href="products.html" class="block px-3 py-2 text-gray-600 hover:text-primary transition-colors">Products</a>
+                    <a href="technology.html" class="block px-3 py-2 text-gray-600 hover:text-primary transition-colors">Technology</a>
+                    <a href="blog.html" class="block px-3 py-2 text-gray-600 hover:text-primary transition-colors">Blog</a>
+                    <a href="team-contact.html" class="block px-3 py-2 text-primary font-semibold">Team & Contact</a>
                 </div>
             </div>
         </div>
@@ -417,7 +436,20 @@
             initializeQuantityInput();
             initializeForm();
             preSelectProductFromURL();
+            initializeMobileMenu();
         });
+
+        // Mobile menu functionality
+        function initializeMobileMenu() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        }
 
         function initializeProductSelection() {
             const productCards = document.querySelectorAll('.product-card');
