@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Products - Ecocycle Innovations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary: #0f766e;
+            --primary-light: #14b8a6;
+            --primary-dark: #115e59;
+            --accent: #f59e0b;
+            --accent-light: #fbbf24;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fafafa;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #064e3b 0%, #065f46 25%, #047857 50%, #059669 75%, #10b981 100%);
+        }
+        
+        .form-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(15, 118, 110, 0.4);
+        }
+        
+        .product-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-4px);
+            border-color: #10b981;
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.2);
+        }
+        
+        .product-card.selected {
+            border-color: #10b981;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(5, 150, 105, 0.05) 100%);
+        }
+        
+        .success-message {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            display: none;
+        }
+        
+        .error-message {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-br from-teal-600 to-emerald-600 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-recycle text-white text-lg"></i>
+                        </div>
+                        <span class="text-xl font-bold text-gray-900">Ecocycle Innovations</span>
+                    </a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-600 hover:text-teal-600 transition-colors">Home</a>
+                    <a href="about.html" class="text-gray-600 hover:text-teal-600 transition-colors">About</a>
+                    <a href="products.html" class="text-gray-600 hover:text-teal-600 transition-colors">Products</a>
+                    <a href="blog.html" class="text-gray-600 hover:text-teal-600 transition-colors">Blog</a>
+                    <a href="team-contact.html" class="text-gray-600 hover:text-teal-600 transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient py-16 text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                Order Our <span class="text-yellow-300">Sustainable Products</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-green-100 max-w-3xl mx-auto">
+                Transform waste into innovation. Choose from our range of eco-friendly 3D printing filaments and products.
+            </p>
+        </div>
+    </section>
+
+    <!-- Order Form Section -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Success/Error Messages -->
+            <div id="successMessage" class="success-message">
+                <div class="flex items-center">
+                    <i class="fas fa-check-circle text-2xl mr-4"></i>
+                    <div>
+                        <h3 class="text-lg font-semibold">Order Submitted Successfully!</h3>
+                        <p>Thank you for your order. We'll contact you within 24 hours to confirm details and arrange delivery.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="errorMessage" class="error-message">
+                <div class="flex items-center">
+                    <i class="fas fa-exclamation-circle text-2xl mr-4"></i>
+                    <div>
+                        <h3 class="text-lg font-semibold">Order Submission Failed</h3>
+                        <p id="errorText">Please check your information and try again.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Product Selection -->
+                <div class="form-card p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">
+                        <i class="fas fa-shopping-cart text-teal-600 mr-3"></i>
+                        Select Products
+                    </h2>
+                    
+                    <div class="space-y-4">
+                        <!-- Product 1: Flexible 3D Printing Filament -->
+                        <div class="product-card p-4 rounded-lg cursor-pointer" data-product="flexible-filament" data-price="2999">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="font-semibold text-gray-900">Flexible 3D Printing Filament</h3>
+                                    <p class="text-sm text-gray-600">Perfect for wearables and flexible designs</p>
+                                    <div class="flex items-center mt-2">
+                                        <span class="text-lg font-bold text-teal-600">₹2,999</span>
+                                        <span class="text-sm text-gray-500 ml-2">per kg</span>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-cube text-white"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 2: Consumer Products Filament -->
+                        <div class="product-card p-4 rounded-lg cursor-pointer" data-product="consumer-filament" data-price="2499">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="font-semibold text-gray-900">Consumer Products Filament</h3>
+                                    <p class="text-sm text-gray-600">Ideal for functional and sustainable products</p>
+                                    <div class="flex items-center mt-2">
+                                        <span class="text-lg font-bold text-teal-600">₹2,499</span>
+                                        <span class="text-sm text-gray-500 ml-2">per kg</span>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-home text-white"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 3: Educational Kit -->
+                        <div class="product-card p-4 rounded-lg cursor-pointer" data-product="education-kit" data-price="5999">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="font-semibold text-gray-900">Educational 3D Printing Kit</h3>
+                                    <p class="text-sm text-gray-600">Complete kit for schools and makerspaces</p>
+                                    <div class="flex items-center mt-2">
+                                        <span class="text-lg font-bold text-teal-600">₹5,999</span>
+                                        <span class="text-sm text-gray-500 ml-2">complete kit</span>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-graduation-cap text-white"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 4: Custom Solutions -->
+                        <div class="product-card p-4 rounded-lg cursor-pointer" data-product="custom-solution" data-price="0">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="font-semibold text-gray-900">Custom 3D Printing Solutions</h3>
+                                    <p class="text-sm text-gray-600">Tailored solutions for your specific needs</p>
+                                    <div class="flex items-center mt-2">
+                                        <span class="text-lg font-bold text-teal-600">Quote on Request</span>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-cogs text-white"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quantity and Notes -->
+                    <div class="mt-6 space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Quantity</label>
+                            <input type="number" id="quantity" min="1" value="1" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Special Requirements</label>
+                            <textarea id="specialRequirements" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500" placeholder="Any specific requirements or customizations..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customer Information -->
+                <div class="form-card p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">
+                        <i class="fas fa-user text-teal-600 mr-3"></i>
+                        Customer Information
+                    </h2>
+                    
+                    <form id="orderForm" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
+                                <input type="text" id="firstName" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
+                                <input type="text" id="lastName" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
+                            <input type="email" id="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
+                            <input type="tel" id="phone" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Company/Organization</label>
+                            <input type="text" id="company" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Full Address *</label>
+                            <textarea id="address" required rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500" placeholder="Street, City, State, PIN Code"></textarea>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">City *</label>
+                                <input type="text" id="city" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">PIN Code *</label>
+                                <input type="text" id="pinCode" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+                            </div>
+                        </div>
+                        
+                        <!-- Order Summary -->
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Order Summary</h3>
+                            <div class="space-y-2">
+                                <div class="flex justify-between">
+                                    <span>Selected Product:</span>
+                                    <span id="selectedProductText" class="font-medium">None selected</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Quantity:</span>
+                                    <span id="quantityText" class="font-medium">1</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Unit Price:</span>
+                                    <span id="unitPriceText" class="font-medium">₹0</span>
+                                </div>
+                                <hr class="my-2">
+                                <div class="flex justify-between text-lg font-bold">
+                                    <span>Total Amount:</span>
+                                    <span id="totalAmountText" class="text-teal-600">₹0</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary w-full py-4 text-white font-semibold rounded-lg">
+                            <i class="fas fa-paper-plane mr-2"></i>
+                            Submit Order
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-8 h-8 bg-gradient-to-br from-teal-600 to-emerald-600 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-recycle text-white"></i>
+                        </div>
+                        <span class="text-lg font-bold">Ecocycle Innovations</span>
+                    </div>
+                    <p class="text-gray-400 text-sm">Transforming waste into sustainable innovation through advanced 3D printing technology.</p>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white transition-colors">About</a></li>
+                        <li><a href="products.html" class="text-gray-400 hover:text-white transition-colors">Products</a></li>
+                        <li><a href="blog.html" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Products</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">3D Printing Filaments</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Educational Kits</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Custom Solutions</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Contact</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><i class="fas fa-envelope mr-2"></i>info@ecocycleinnovations.com</li>
+                        <li><i class="fas fa-phone mr-2"></i>+91 9876543210</li>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i>Mumbai, India</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="border-gray-800 my-8">
+            
+            <div class="text-center text-sm text-gray-400">
+                <p>&copy; 2024 Ecocycle Innovations. All rights reserved. | <a href="#" class="hover:text-white transition-colors">Privacy Policy</a> | <a href="#" class="hover:text-white transition-colors">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global variables
+        let selectedProduct = null;
+        let selectedPrice = 0;
+        let quantity = 1;
+
+        // Product data
+        const products = {
+            'flexible-filament': {
+                name: 'Flexible 3D Printing Filament',
+                price: 2999,
+                unit: 'per kg'
+            },
+            'consumer-filament': {
+                name: 'Consumer Products Filament',
+                price: 2499,
+                unit: 'per kg'
+            },
+            'education-kit': {
+                name: 'Educational 3D Printing Kit',
+                price: 5999,
+                unit: 'complete kit'
+            },
+            'custom-solution': {
+                name: 'Custom 3D Printing Solutions',
+                price: 0,
+                unit: 'quote on request'
+            }
+        };
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeProductSelection();
+            initializeQuantityInput();
+            initializeForm();
+            preSelectProductFromURL();
+        });
+
+        function initializeProductSelection() {
+            const productCards = document.querySelectorAll('.product-card');
+            
+            productCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Remove selection from all cards
+                    productCards.forEach(c => c.classList.remove('selected'));
+                    
+                    // Add selection to clicked card
+                    this.classList.add('selected');
+                    
+                    // Get product data
+                    const productId = this.dataset.product;
+                    const productPrice = parseInt(this.dataset.price);
+                    
+                    selectedProduct = productId;
+                    selectedPrice = productPrice;
+                    
+                    updateOrderSummary();
+                });
+            });
+        }
+
+        function initializeQuantityInput() {
+            const quantityInput = document.getElementById('quantity');
+            
+            quantityInput.addEventListener('input', function() {
+                quantity = parseInt(this.value) || 1;
+                updateOrderSummary();
+            });
+        }
+
+        function updateOrderSummary() {
+            const selectedProductText = document.getElementById('selectedProductText');
+            const quantityText = document.getElementById('quantityText');
+            const unitPriceText = document.getElementById('unitPriceText');
+            const totalAmountText = document.getElementById('totalAmountText');
+            
+            if (selectedProduct && products[selectedProduct]) {
+                const product = products[selectedProduct];
+                selectedProductText.textContent = product.name;
+                quantityText.textContent = quantity;
+                
+                if (product.price === 0) {
+                    unitPriceText.textContent = 'Quote on Request';
+                    totalAmountText.textContent = 'Quote on Request';
+                } else {
+                    unitPriceText.textContent = `₹${product.price.toLocaleString()}`;
+                    const total = product.price * quantity;
+                    totalAmountText.textContent = `₹${total.toLocaleString()}`;
+                }
+            } else {
+                selectedProductText.textContent = 'None selected';
+                quantityText.textContent = '1';
+                unitPriceText.textContent = '₹0';
+                totalAmountText.textContent = '₹0';
+            }
+        }
+
+        function initializeForm() {
+            const form = document.getElementById('orderForm');
+            
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                if (!selectedProduct) {
+                    showError('Please select a product before submitting your order.');
+                    return;
+                }
+                
+                // Get form data
+                const orderData = {
+                    id: Date.now(),
+                    productId: selectedProduct,
+                    productName: products[selectedProduct].name,
+                    quantity: quantity,
+                    unitPrice: selectedPrice,
+                    totalAmount: selectedPrice * quantity,
+                    customer: {
+                        firstName: document.getElementById('firstName').value,
+                        lastName: document.getElementById('lastName').value,
+                        email: document.getElementById('email').value,
+                        phone: document.getElementById('phone').value,
+                        company: document.getElementById('company').value,
+                        address: document.getElementById('address').value,
+                        city: document.getElementById('city').value,
+                        pinCode: document.getElementById('pinCode').value
+                    },
+                    specialRequirements: document.getElementById('specialRequirements').value,
+                    status: 'pending',
+                    date: new Date().toISOString(),
+                    timestamp: Date.now()
+                };
+                
+                try {
+                    // Save to Firebase
+                    await saveOrderToFirebase(orderData);
+                    
+                    // Show success message
+                    showSuccess();
+                    
+                    // Reset form
+                    form.reset();
+                    document.querySelectorAll('.product-card').forEach(card => card.classList.remove('selected'));
+                    selectedProduct = null;
+                    selectedPrice = 0;
+                    quantity = 1;
+                    updateOrderSummary();
+                    
+                } catch (error) {
+                    console.error('Error saving order:', error);
+                    showError('Failed to submit order. Please try again or contact us directly.');
+                }
+            });
+        }
+
+        async function saveOrderToFirebase(orderData) {
+            try {
+                const db = initializeFirebase();
+                if (!db) {
+                    throw new Error('Firebase not initialized');
+                }
+
+                const ordersRef = firebase.database().ref('orders/' + orderData.id);
+                await ordersRef.set(orderData);
+                
+                console.log('Order saved to Firebase successfully!');
+                
+            } catch (error) {
+                console.error('Error saving to Firebase:', error);
+                throw error;
+            }
+        }
+
+        function showSuccess() {
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'block';
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showError(message) {
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+            
+            errorText.textContent = message;
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'block';
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function preSelectProductFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productParam = urlParams.get('product');
+            
+            if (productParam && products[productParam]) {
+                // Find and click the product card
+                const productCard = document.querySelector(`[data-product="${productParam}"]`);
+                if (productCard) {
+                    productCard.click();
+                    
+                    // Scroll to product selection section
+                    setTimeout(() => {
+                        productCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 100);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

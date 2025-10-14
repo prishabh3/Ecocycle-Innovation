@@ -48,6 +48,36 @@
             box-shadow: 0 8px 25px rgba(15, 118, 110, 0.4);
         }
         
+        .tab-button {
+            padding: 12px 24px;
+            border: none;
+            background: transparent;
+            color: #6b7280;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-button:hover {
+            color: #10b981;
+            background: rgba(16, 185, 129, 0.05);
+        }
+        
+        .tab-button.active {
+            color: #10b981;
+            border-bottom-color: #10b981;
+            background: rgba(16, 185, 129, 0.05);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
         .tag-input {
             border: 1px solid #d1d5db;
             border-radius: 8px;
@@ -175,10 +205,10 @@
     <section class="hero-gradient py-12 relative overflow-hidden">
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">
-                Blog Management
+                Admin Dashboard
             </h1>
             <p class="text-lg text-gray-200">
-                Add new blog posts with photos and content
+                Manage blog posts and customer orders
             </p>
         </div>
     </section>
@@ -204,11 +234,27 @@
         </div>
     </div>
 
-    <!-- Blog Post Form -->
-    <section class="py-12 bg-gray-50">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="form-card p-8">
-                <h2 class="text-2xl font-bold section-title mb-6">Add New Blog Post</h2>
+    <!-- Admin Tabs -->
+    <section class="py-8 bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex space-x-8">
+                <button id="blogTab" class="tab-button active" onclick="switchTab('blog')">
+                    <i class="fas fa-blog mr-2"></i>Blog Management
+                </button>
+                <button id="orderTab" class="tab-button" onclick="switchTab('orders')">
+                    <i class="fas fa-shopping-cart mr-2"></i>Order Management
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Management Tab -->
+    <div id="blogContent" class="tab-content">
+        <!-- Blog Post Form -->
+        <section class="py-12 bg-gray-50">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="form-card p-8">
+                    <h2 class="text-2xl font-bold section-title mb-6">Add New Blog Post</h2>
                 
 
                 
@@ -342,15 +388,49 @@
         </div>
     </section>
 
-    <!-- Recent Posts Section -->
-    <section class="py-12 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl font-bold section-title mb-8 text-center">Recent Posts</h2>
-            <div id="recentPosts" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Posts will be loaded here -->
+        <!-- Recent Posts Section -->
+        <section class="py-12 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-2xl font-bold section-title mb-8 text-center">Recent Posts</h2>
+                <div id="recentPosts" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Posts will be loaded here -->
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
+
+    <!-- Order Management Tab -->
+    <div id="orderContent" class="tab-content">
+        <!-- Orders Section -->
+        <section class="py-12 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="form-card p-8">
+                    <h2 class="text-2xl font-bold section-title mb-6">Customer Orders</h2>
+                    
+                    <!-- Order Filters -->
+                    <div class="mb-6 flex flex-wrap gap-4">
+                        <select id="orderStatusFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary">
+                            <option value="all">All Orders</option>
+                            <option value="pending">Pending</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                        
+                        <button onclick="loadOrders()" class="btn-primary px-6 py-2 text-white rounded-lg">
+                            <i class="fas fa-refresh mr-2"></i>Refresh Orders
+                        </button>
+                    </div>
+                    
+                    <!-- Orders List -->
+                    <div id="ordersList" class="space-y-4">
+                        <!-- Orders will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <script>
         // Check authentication
@@ -365,6 +445,9 @@
                 window.location.href = 'admin-login.html';
                 return;
             }
+            
+            // Initialize with blog tab active
+            switchTab('blog');
             
             const timeDiff = Date.now() - parseInt(loginTime);
             const hoursDiff = timeDiff / (1000 * 60 * 60);
@@ -927,6 +1010,201 @@
 
             processBlogPost(newPost);
         }
+
+        // Tab switching functionality
+        function switchTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            if (tabName === 'blog') {
+                document.getElementById('blogContent').classList.add('active');
+                document.getElementById('blogTab').classList.add('active');
+            } else if (tabName === 'orders') {
+                document.getElementById('orderContent').classList.add('active');
+                document.getElementById('orderTab').classList.add('active');
+                loadOrders(); // Load orders when switching to orders tab
+            }
+        }
+
+        // Order management functions
+        let orders = [];
+
+        async function loadOrders() {
+            try {
+                const db = initializeFirebase();
+                if (!db) {
+                    console.error('Firebase not initialized');
+                    return;
+                }
+
+                const ordersRef = firebase.database().ref('orders');
+                const snapshot = await ordersRef.once('value');
+                const firebaseOrders = snapshot.val();
+                
+                if (firebaseOrders) {
+                    orders = Object.values(firebaseOrders);
+                    orders.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    displayOrders();
+                } else {
+                    orders = [];
+                    displayOrders();
+                }
+                
+            } catch (error) {
+                console.error('Error loading orders:', error);
+                showError('Failed to load orders. Please try again.');
+            }
+        }
+
+        function displayOrders() {
+            const ordersList = document.getElementById('ordersList');
+            const statusFilter = document.getElementById('orderStatusFilter').value;
+            
+            let filteredOrders = orders;
+            if (statusFilter !== 'all') {
+                filteredOrders = orders.filter(order => order.status === statusFilter);
+            }
+            
+            if (filteredOrders.length === 0) {
+                ordersList.innerHTML = `
+                    <div class="text-center py-8 text-gray-500">
+                        <i class="fas fa-shopping-cart text-4xl mb-4"></i>
+                        <p>No orders found.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            ordersList.innerHTML = filteredOrders.map(order => `
+                <div class="order-card bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Order #${order.id}</h3>
+                            <p class="text-sm text-gray-600">${new Date(order.date).toLocaleDateString()}</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="status-badge status-${order.status} px-3 py-1 rounded-full text-xs font-medium">
+                                ${order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                            </span>
+                            <p class="text-lg font-bold text-gray-900 mt-1">
+                                ${order.totalAmount === 0 ? 'Quote Request' : '₹' + order.totalAmount.toLocaleString()}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <h4 class="font-medium text-gray-900 mb-2">Product Details</h4>
+                            <p class="text-sm text-gray-600">${order.productName}</p>
+                            <p class="text-sm text-gray-600">Quantity: ${order.quantity}</p>
+                            ${order.unitPrice > 0 ? `<p class="text-sm text-gray-600">Unit Price: ₹${order.unitPrice.toLocaleString()}</p>` : ''}
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-medium text-gray-900 mb-2">Customer Details</h4>
+                            <p class="text-sm text-gray-600">${order.customer.firstName} ${order.customer.lastName}</p>
+                            <p class="text-sm text-gray-600">${order.customer.email}</p>
+                            <p class="text-sm text-gray-600">${order.customer.phone}</p>
+                            ${order.customer.company ? `<p class="text-sm text-gray-600">${order.customer.company}</p>` : ''}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-medium text-gray-900 mb-2">Address</h4>
+                        <p class="text-sm text-gray-600">${order.customer.address}</p>
+                        <p class="text-sm text-gray-600">${order.customer.city} - ${order.customer.pinCode}</p>
+                    </div>
+                    
+                    ${order.specialRequirements ? `
+                    <div class="mb-4">
+                        <h4 class="font-medium text-gray-900 mb-2">Special Requirements</h4>
+                        <p class="text-sm text-gray-600">${order.specialRequirements}</p>
+                    </div>
+                    ` : ''}
+                    
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="updateOrderStatus('${order.id}', 'confirmed')" 
+                                class="px-3 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600 transition-colors">
+                            <i class="fas fa-check mr-1"></i>Confirm
+                        </button>
+                        <button onclick="updateOrderStatus('${order.id}', 'shipped')" 
+                                class="px-3 py-1 bg-yellow-500 text-white text-xs rounded hover:bg-yellow-600 transition-colors">
+                            <i class="fas fa-truck mr-1"></i>Ship
+                        </button>
+                        <button onclick="updateOrderStatus('${order.id}', 'delivered')" 
+                                class="px-3 py-1 bg-green-500 text-white text-xs rounded hover:bg-green-600 transition-colors">
+                            <i class="fas fa-check-circle mr-1"></i>Deliver
+                        </button>
+                        <button onclick="updateOrderStatus('${order.id}', 'cancelled')" 
+                                class="px-3 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600 transition-colors">
+                            <i class="fas fa-times mr-1"></i>Cancel
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function updateOrderStatus(orderId, newStatus) {
+            try {
+                const db = initializeFirebase();
+                if (!db) {
+                    throw new Error('Firebase not initialized');
+                }
+
+                const orderRef = firebase.database().ref('orders/' + orderId + '/status');
+                await orderRef.set(newStatus);
+                
+                // Update local orders array
+                const orderIndex = orders.findIndex(order => order.id == orderId);
+                if (orderIndex !== -1) {
+                    orders[orderIndex].status = newStatus;
+                    displayOrders();
+                }
+                
+                showSuccess(`Order #${orderId} status updated to ${newStatus}.`);
+                
+            } catch (error) {
+                console.error('Error updating order status:', error);
+                showError('Failed to update order status. Please try again.');
+            }
+        }
+
+        // Add CSS for status badges
+        const style = document.createElement('style');
+        style.textContent = `
+            .status-badge {
+                text-transform: capitalize;
+            }
+            .status-pending {
+                background-color: #fef3c7;
+                color: #92400e;
+            }
+            .status-confirmed {
+                background-color: #dbeafe;
+                color: #1e40af;
+            }
+            .status-shipped {
+                background-color: #fef3c7;
+                color: #92400e;
+            }
+            .status-delivered {
+                background-color: #d1fae5;
+                color: #065f46;
+            }
+            .status-cancelled {
+                background-color: #fee2e2;
+                color: #991b1b;
+            }
+        `;
+        document.head.appendChild(style);
     </script>
     
 
