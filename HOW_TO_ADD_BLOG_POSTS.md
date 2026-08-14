@@ -119,3 +119,4 @@ Together, let's reimagine waste as a resource and build a greener, circular futu
 
 **Need Help?** Contact the development team or check the console logs for detailed error messages.
 
+

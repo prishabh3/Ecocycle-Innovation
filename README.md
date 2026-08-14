@@ -36,21 +36,6 @@ A modern, responsive website for Ecocycle Innovations featuring a content manage
 3. Select "Deploy from a branch" → "main" branch
 4. Your website will be live at `https://yourusername.github.io/repository-name`
 
-## 🔐 Admin Access
-
-### Method 1: Direct URL
-- Go to: `https://yourwebsite.com/ecocycle-admin.html`
-- Username: `****`
-- Password: ****
-
-### Method 2: Company Information Page
-- Go to: `https://yourwebsite.com/company-info.html`
-- Click the company logo 3 times quickly
-- Admin access will appear
-
-### Method 3: Secret Key
-- Go to: `https://yourwebsite.com/company-info.html?key=ecocycle2024`
-- Admin access will be revealed
 
 ## 📝 Adding Blog Posts
 
@@ -146,7 +131,7 @@ Edit the category options in `admin.html`:
 4. Check image file size (max 5MB)
 
 ### Admin Access Issues
-1. Make sure you're using the correct password: `Ecocycle2024@`
+1. Make sure you're using the correct password: `<YOUR_PASSWORD_HERE>`
 2. Try different access methods
 3. Clear browser cache
 4. Check if JavaScript is enabled
