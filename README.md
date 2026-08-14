@@ -40,8 +40,8 @@ A modern, responsive website for Ecocycle Innovations featuring a content manage
 
 ### Method 1: Direct URL
 - Go to: `https://yourwebsite.com/ecocycle-admin.html`
-- Username: `admin`
-- Password: `Ecocycle2024@`
+- Username: `****`
+- Password: ****
 
 ### Method 2: Company Information Page
 - Go to: `https://yourwebsite.com/company-info.html`
