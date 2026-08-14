@@ -2,7 +2,7 @@
 // This file connects your website to Firebase
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDXqoE-IsZIWgtaAVVLoVol8mBFC392rTY",
+    apiKey: "",
     authDomain: "ecocycle-innovations.firebaseapp.com",
     databaseURL: "https://ecocycle-innovations-default-rtdb.firebaseio.com",
     projectId: "ecocycle-innovations",
